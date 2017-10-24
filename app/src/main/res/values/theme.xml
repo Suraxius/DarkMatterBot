@@ -1,7 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="DarkMatterBotTheme">
-        <item name="android:windowBackground">@color/background</item>
-        <item name="android:editTextBackground">@color/background_light</item>
+    <style name="DarkMatterBotRedTheme">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textColorPrimary">@color/textColorPrimary</item>
+        <item name="android:textColorSecondary">@color/textColorSecondary</item>
+        <item name="android:textColorPrimaryInverse">@color/textColorPrimaryInverse</item>
+        <item name="android:textColorSecondaryInverse">@color/textColorSecondaryInverse</item>
+
+        <item name="android:windowBackground">@color/colorPrimary</item>
+        <item name="android:editTextBackground">@color/colorPrimaryLight</item>
+        <item name="android:textColor">@color/textColorPrimary</item>
+        <item name="android:icon">@mipmap/logo_red</item>
     </style>
+
 </resources>

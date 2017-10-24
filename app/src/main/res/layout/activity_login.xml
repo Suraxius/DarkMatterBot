@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:theme="@style/DarkMatterBotTheme"
+    android:theme="@style/DarkMatterBotRedTheme"
     tools:context="pub.darkmatterbot.LoginActivity">
 
     <RelativeLayout
@@ -17,8 +17,8 @@
             android:id="@+id/button_login"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:background="@color/background_light"
             android:text="Login"
+            android:background="@color/colorPrimaryLight"
             tools:layout_editor_absoluteX="136dp"
             tools:layout_editor_absoluteY="231dp"
             android:layout_marginTop="46dp"
@@ -30,6 +30,7 @@
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:text="Save Password"
+            android:textColor="@color/textColorPrimary"
             tools:layout_editor_absoluteX="116dp"
             tools:layout_editor_absoluteY="181dp"
             android:layout_marginTop="28dp"
@@ -43,6 +44,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="Password"
+            android:textColorHint="@color/textColorSecondary"
             android:inputType="textPassword"
             tools:layout_editor_absoluteX="72dp"
             tools:layout_editor_absoluteY="117dp"
@@ -57,6 +59,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="Username"
+            android:textColorHint="@color/textColorSecondary"
             android:inputType="textPersonName"
             tools:layout_editor_absoluteX="72dp"
             tools:layout_editor_absoluteY="63dp"
@@ -73,8 +76,8 @@
             android:layout_below="@+id/password"
             android:layout_marginTop="24dp"
             android:dropDownWidth="match_parent"
-            android:popupBackground="@color/background_light"
-            android:spinnerMode="dropdown" />
+            android:spinnerMode="dropdown"
+            android:popupBackground="@color/colorPrimaryLight" />
     </RelativeLayout>
 
 </android.support.constraint.ConstraintLayout>
