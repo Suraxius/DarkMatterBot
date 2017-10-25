@@ -1,44 +1,29 @@
 package pub.libogame;
 
+import android.util.Log;
+
 public class LibOgameTest
 {
     private static LibOgame libOgame;
 
     public static void main(String [] args)
     {
-        Logger.println("Starting LibOgame Tests...");
-        libOgame = new LibOgame();
-        if( test_connect() )
-            if( test_login() )
-                Logger.println("All tests succeeded!");
+        Log.println(Log.WARN, "LibOgameTest", "Starting LibOgame Tests...");
+        libOgame = new LibOgame("https://en.ogame.gameforge.com/");
+        if( test_login() )
+            Log.println(Log.WARN, "LibOgameTest", "All tests succeeded!");
 
-        for(String message : ErrorHandler.getErrorMessages()) { Logger.println(message); }
-    }
-
-    public static boolean test_connect() {
-        Logger.print("Testing connect... ");
-        if (libOgame.connect("https://en.ogame.gameforge.com/") == ReturnCode.SUCCESS) {
-
-            for(int i = 0; i < libOgame.getNumServers(); i++)
-                System.out.println("Server " + i + ": " + libOgame.getServerName(i));
-
-            Logger.println("[OK]");
-            return true;
-        }
-        else {
-            Logger.println("[FAILED]");
-            return false;
-        }
+        for(String message : Logger.getErrorMessages()) { Log.println(Log.WARN, "LibOgameTest", message); }
     }
 
     public static boolean test_login() {
-        Logger.print("Testing login... ");
-        if (libOgame.login(1, "surax1", "surax230") == ReturnCode.SUCCESS) {
-            Logger.println("[OK]");
+        Log.println(Log.WARN, "LibOgameTest", "Testing login... ");
+        if (libOgame.auth.login(1, "surax1", "surax230") == ReturnCode.SUCCESS) {
+            Log.println(Log.WARN, "LibOgameTest", "[OK]");
             return true;
         }
         else {
-            Logger.println("[FAILED]");
+            Log.println(Log.WARN, "LibOgameTest", "[FAILED]");
             return false;
         }
     }

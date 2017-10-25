@@ -1,7 +1,8 @@
 package pub.libogame;
+import android.util.Log;
+
 import java.nio.file.Paths;
 import java.nio.file.Files;
-import java.nio.charset.Charset;
 import java.io.IOException;
 
 /*
@@ -14,13 +15,13 @@ class ActionGenerator
 {
     private HTTPSClient hc;
     private DataParser  dp;
-    private DataStore   ds;
+    private LibOgame    context;
     private String username, password;
 
-    public ActionGenerator( DataStore ds) {
+    public ActionGenerator( LibOgame context ) {
 	this.hc = new HTTPSClient();
-	this.dp = new DataParser(ds);
-	this.ds = ds; //used to access ds.requestURL. Nothing else!
+	this.dp = new DataParser(context);
+	this.context = context; //used to access ds.requestURL. Nothing else!
     }
 
     public ReturnCode initialize(String websiteURL) {
@@ -30,27 +31,24 @@ class ActionGenerator
 
         String tmp = fromSampleFile("samplePages/login.html");
         if (tmp != null) return dp.parse(tmp);
-        else return ErrorHandler.log("ActionGenerator: No HTML Content to work with!");
+        else return ReturnCode.Error(0, "ActionGenerator: No HTML Content to work with!");
     }
 
-    public ReturnCode login(String server, String username, String password)
+    public ReturnCode login()
     {
-        hc.setURL(ds.requestURL);
-
         hc.addPostData("kid", "");
-        hc.addPostData("login", username);
-        hc.addPostData("pass", password);
-        hc.addPostData("uni", server);
+        hc.addPostData("login", context.auth.username);
+        hc.addPostData("pass", context.auth.password);
+        hc.addPostData("uni", context.servers.getLink(context.auth.serverIndex));
 
-        if(hc.runRequest() != ReturnCode.SUCCESS) return ReturnCode.ERROR;
+        if(hc.runRequest(context.auth.loginURL) == ReturnCode.SUCCESS) {
+            String tmp = hc.getData();
+            Log.println(Log.WARN, "ActionGenerator", tmp);
 
-        Logger.println(hc.getData());
-
-        String tmp = null;
-
-        //String tmp = hc.getData();
-        if (tmp != null) return dp.parse(tmp);
-        else return ErrorHandler.log("ActionGenerator: No HTML Content to work with!");
+            if (tmp != null) return dp.parse(tmp);
+            else return ReturnCode.Error(1, "ActionGenerator: No HTML Content to work with!");
+        }
+        else return ReturnCode.Error(0, "ActionGenerator: Login failed!");
     }
 
     /* A Debug function. Can be removed in release. */
@@ -59,7 +57,7 @@ class ActionGenerator
         try {
             byte[] encoded = Files.readAllBytes(Paths.get(filename));
             return new String(encoded);
-        } catch(IOException e) { Logger.println("Sample File Missing!"); }
+        } catch(IOException e) { Log.println(Log.WARN, "ActionGenerator", "Sample File Missing!"); }
         return null;
     }
 }

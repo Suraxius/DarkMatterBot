@@ -1,39 +1,41 @@
 package pub.libogame;
 
+import android.util.Log;
+
 class DataParser
 {
-    private DataStore ds;
+    private LibOgame context;
 
-    public DataParser( DataStore dataStore ) {
-        this.ds = dataStore;
+    public DataParser( LibOgame context ) {
+        this.context = context;
     }
 
     public ReturnCode parse(String pageContent) {
         if (pageContent.contains("<form id=\"loginForm\" name=\"loginForm\" method=\"post\""))
-            return LoginPageHandler.process(ds, pageContent);
+            return LoginPageHandler.process(context, pageContent);
         else if (pageContent.contains("<body id=\"overview\""))
-            return OverviewPageHandler.process(ds, pageContent);
+            return OverviewPageHandler.process(context, pageContent);
         else if (pageContent.contains("<body id=\"resources\""))
-            return ResourcesPageHandler.process(ds, pageContent);
+            return ResourcesPageHandler.process(context, pageContent);
         else if (pageContent.contains("<body id=\"resourceSettings\""))
-            return ResourceSettingsPageHandler.process(ds, pageContent);
+            return ResourceSettingsPageHandler.process(context, pageContent);
         else if (pageContent.contains("<body id=\"station\""))
-            return FacillitiesPageHandler.process(ds, pageContent);
+            return FacilitiesPageHandler.process(context, pageContent);
         else if (pageContent.contains("<body id=\"research\""))
-            return ResearchPageHandler.process(ds, pageContent);
+            return ResearchPageHandler.process(context, pageContent);
         else if (pageContent.contains("<body id=\"shipyard\""))
-            return ShipyardPageHandler.process(ds, pageContent);
+            return ShipyardPageHandler.process(context, pageContent);
         else if (pageContent.contains("<body id=\"defense\""))
-            return DefencePageHandler.process(ds, pageContent);
+            return DefencePageHandler.process(context, pageContent);
         else if (pageContent.contains("<body id=\"fleet1\""))
-            return FleetPageHandler.process(ds, pageContent, 1);
-        else return PageHandler.process(ds, pageContent);
+            return FleetPageHandler.process(context, pageContent, 1);
+        else return PageHandler.process(context, pageContent);
     }
     //-----------------------------------
 
     private static class PageHandler {
-        protected static ReturnCode process(DataStore ds, String pageContent) {
-            return ErrorHandler.log("DataParser: Failed to recognize the HTML content received!");
+        protected static ReturnCode process(LibOgame context, String pageContent) {
+            return ReturnCode.Error(0, "DataParser: Failed to recognize the HTML content received!");
 	}
 
         //Returns the nth accurance of a substring between two other strings.
@@ -58,18 +60,18 @@ class DataParser
 
     private static class LoginPageHandler extends PageHandler
     {
-        protected static ReturnCode process(DataStore ds, String pageContent) {
-            Logger.print(" Hello from LoginPageHandler! ");
-            if(parseServerList(ds, pageContent) == ReturnCode.SUCCESS &&
-               parseRequestURL(ds, pageContent) == ReturnCode.SUCCESS)
+        protected static ReturnCode process(LibOgame context, String pageContent) {
+            Log.println(Log.WARN, "DataParser", " Hello from LoginPageHandler! ");
+            if(parseServerList(context, pageContent) == ReturnCode.SUCCESS &&
+               parseRequestURL(context, pageContent) == ReturnCode.SUCCESS)
             {
-                ds.initialized = true;
+                context.initialized = true;
                 return ReturnCode.SUCCESS;
             }
-            else return ErrorHandler.log("DataParser: Failed to interprete html code as login html code");
+            else return ReturnCode.Error(0, "DataParser: Failed to interprete html code as login html code");
         }
         /* Parse the server List from the login page html code. */
-        protected static ReturnCode parseServerList(DataStore ds, String pageContent) {
+        protected static ReturnCode parseServerList(LibOgame context, String pageContent) {
             String entry, value, name;
             int count = 1;
             while((entry = getTagContent(pageContent, "<option", "</option>", count++)) != null) {
@@ -79,91 +81,91 @@ class DataParser
 
                 //If name or value could not be parsed, end in error.
                 if(name == null || value == null)
-                	return ErrorHandler.log("DataParser.LoginPageHandler: Failed to Parse the Server List!");
+                	return ReturnCode.Error(0, "DataParser.LoginPageHandler: Failed to Parse the Server List!");
                 else
-                    ds.serverList.add(name,value);
+                    context.servers.add(name,value);
             }
-            if(ds.serverList.size() == 0)
-                return ErrorHandler.log("DataParser.LoginPageHandler.parseServerList: Failed to find server List in HTML!");
+            if(context.servers.count() == 0)
+                return ReturnCode.Error(0, "DataParser.LoginPageHandler.parseServerList: Failed to find server List in HTML!");
             else
                 return ReturnCode.SUCCESS;
         }
         /**/
-        protected static ReturnCode parseRequestURL(DataStore ds, String pageContent) {
+        private static ReturnCode parseRequestURL(LibOgame context, String pageContent) {
             String str = getTagContent(pageContent, "<form id=\"loginForm\" name=\"loginForm\" method=\"post\" action=\"", "\">", 1);
             if(str != null) {
-                ds.requestURL = str;
+                context.auth.requestURL = str;
                 return ReturnCode.SUCCESS;
             }
-            else return ErrorHandler.log("DataParser.parseRequestURL: Unable to find HTML Tag to parse.:");
+            else return ReturnCode.Error(0, "DataParser.parseRequestURL: Unable to find HTML Tag to parse.");
         }
     }
 
     private static class OverviewPageHandler extends PageHandler
     {
-        protected static ReturnCode process(DataStore ds, String pageContent) {
-            Logger.print("Hello from OverviewPageHandler!");
+        protected static ReturnCode process(LibOgame context, String pageContent) {
+            Log.println(Log.WARN, "DataParser", "Hello from OverviewPageHandler!");
             return ReturnCode.ERROR;
         }
     }
     /**/
     private static  class ResourcesPageHandler extends PageHandler
     {
-        protected static ReturnCode process(DataStore ds, String pageContent) {
-            Logger.print("Hello from ResourcesPageHandler!");
+        protected static ReturnCode process(LibOgame context, String pageContent) {
+            Log.println(Log.WARN, "DataParser", "Hello from ResourcesPageHandler!");
             return ReturnCode.ERROR;
         }
     }
     /**/
     private static class ResourceSettingsPageHandler extends PageHandler
     {
-        protected static ReturnCode process(DataStore ds, String pageContent) {
-            Logger.print("Hello from ResourceSettingsPageHandler!");
+        protected static ReturnCode process(LibOgame context, String pageContent) {
+            Log.println(Log.WARN, "DataParser", "Hello from ResourceSettingsPageHandler!");
             return ReturnCode.ERROR;
         }
     }
     /**/
-    private static class FacillitiesPageHandler extends PageHandler
+    private static class FacilitiesPageHandler extends PageHandler
     {
-        protected static ReturnCode process(DataStore ds, String pageContent) {
-            Logger.print("Hello from FacilliteisPageHandler!");
+        protected static ReturnCode process(LibOgame context, String pageContent) {
+            Log.println(Log.WARN, "DataParser", "Hello from facilities!");
             return ReturnCode.ERROR;
         }
     }
     /**/
     private static class ResearchPageHandler extends PageHandler
     {
-        protected static ReturnCode process(DataStore ds, String pageContent) {
-            Logger.print("Hello from ResearchPageHandler!");
+        protected static ReturnCode process(LibOgame context, String pageContent) {
+            Log.println(Log.WARN, "DataParser", "Hello from ResearchPageHandler!");
             return ReturnCode.ERROR;
         }
     }
     /**/
     private static class ShipyardPageHandler extends PageHandler
     {
-        protected static ReturnCode process(DataStore ds, String pageContent) {
-            Logger.print("Hello from ShipyardPageHandler!");
+        protected static ReturnCode process(LibOgame context, String pageContent) {
+            Log.println(Log.WARN, "DataParser", "Hello from ShipyardPageHandler!");
             return ReturnCode.ERROR;
         }
     }
     /**/
     private static class DefencePageHandler extends PageHandler
     {
-        protected static ReturnCode process(DataStore ds, String pageContent) {
-            Logger.print("Hello from DefencePageHandler!");
+        protected static ReturnCode process(LibOgame context, String pageContent) {
+            Log.println(Log.WARN, "DataParser", "Hello from DefencePageHandler!");
             return ReturnCode.ERROR;
         }
     }
     //The following class handles multiple pages so it needs to be passed the page identifier:
     private static class FleetPageHandler extends PageHandler
     {
-        protected static ReturnCode process(DataStore ds, String pageContent) {
-            Logger.print("Hello from FleetPageHandler!");
+        protected static ReturnCode process(LibOgame context, String pageContent) {
+            Log.println(Log.WARN, "DataParser", "Hello from FleetPageHandler!");
             return ReturnCode.ERROR;
         }
         //create alternative process method:
-        protected static ReturnCode process(DataStore ds, String pageContent, int pageID) {
-            Logger.print("Hello from Fleet1 PageHandler!");
+        protected static ReturnCode process(LibOgame context, String pageContent, int pageID) {
+            Log.println(Log.WARN, "DataParser", "Hello from Fleet1 PageHandler!");
             return ReturnCode.ERROR;
         }
     }

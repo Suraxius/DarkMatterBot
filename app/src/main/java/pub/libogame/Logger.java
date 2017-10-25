@@ -1,23 +1,35 @@
 package pub.libogame;
 
+import java.util.ArrayList;
+
 public class Logger
 {
-    private static String textLog = "";
+    private static final Logger ourInstance = new Logger();
+    private static ArrayList<Integer> errorIDList = new ArrayList<Integer>();
+    private static ArrayList<String> errorMessageList = new ArrayList<String>();
 
-    public static void print( String text )
-    {
-        System.out.println(text);
-        //textLog += text;
+    public static Logger getInstance() {
+        return ourInstance;
     }
 
-    public static void println( String text )
-    {
-        System.out.println(text);
-        //textLog += text + "\n";
+    private Logger() {}
+
+    public static void log(int ErrorCode, String errorMessage) {
+        errorIDList.add(ErrorCode);
+        errorMessageList.add(errorMessage);
     }
 
-    public static void show()
-    {
-        System.out.println(textLog);
+    public static int[] getErrorIDs() {
+        int listSize = errorIDList.size();
+        int[] errorArray = new int[listSize];
+        for(int i = 0; i < listSize; i++) { errorArray[i] = errorIDList.get(i); }
+        return errorArray;
+    }
+
+    public static String[] getErrorMessages() {
+        int listSize = errorMessageList.size();
+        String[] errorArray = new String[listSize];
+        for(int i = 0; i < listSize; i++) { errorArray[i] = errorMessageList.get(i); }
+        return errorArray;
     }
 }

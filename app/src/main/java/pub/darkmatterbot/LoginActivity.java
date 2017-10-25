@@ -2,7 +2,6 @@ package pub.darkmatterbot;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -40,7 +39,6 @@ public class LoginActivity extends Activity {
                 new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, stringArray);
 
         _server_dropdown.setAdapter(adapter);
-
         _username.requestFocus();
     }
 

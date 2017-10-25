@@ -1,6 +1,6 @@
 package pub.libogame;
 import javax.net.ssl.HttpsURLConnection;
-import javax.net.ssl.SSLProtocolException;
+
 import java.net.URL;
 import java.net.CookieHandler;
 import java.net.CookieManager;
@@ -11,18 +11,16 @@ import java.io.IOException;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.DataOutputStream;
-import java.util.ArrayList;
 
 class HTTPSClient
 {
     private String postData;
     private String returnedData;
-    private String urlString;
 
     public HTTPSClient() {}
 
-    public ReturnCode runRequest() {
-        if( urlString.equals("") || urlString == null ) return ErrorHandler.log("HttpsClient: url not set!");
+    public ReturnCode runRequest( String urlString ) {
+        if( urlString.equals("") || urlString == null ) return ReturnCode.Error(0, "HttpsClient: url not set!");
         try {
             CookieHandler.setDefault(new CookieManager());
             URL url = new URL(urlString);
@@ -47,14 +45,12 @@ class HTTPSClient
             br.close();
             connection.disconnect();
         }
-        catch(MalformedURLException e) { return ErrorHandler.log("RunRequest: MalformedURLException"); }
-        catch (IOException e) { return ErrorHandler.log("RunRequest: IOException"); }
-        catch (Exception e) { return ErrorHandler.log("RunRequest: Undefined Exception"); }
+        catch(MalformedURLException e) { return ReturnCode.Error(0, "RunRequest: MalformedURLException"); }
+        catch (IOException e) { return ReturnCode.Error(0, "RunRequest: IOException"); }
+        catch (Exception e) { return ReturnCode.Error(0, "RunRequest: Undefined Exception"); }
 
         return ReturnCode.SUCCESS;
     }
-
-    public void setURL( String url ) { this.urlString = url; }
 
     public void addPostData( String name, String value ) {
         try {

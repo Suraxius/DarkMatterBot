@@ -1,9 +1,11 @@
 package pub.darkmatterbot;
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.TabHost;
 import android.widget.Toast;
 
 public class MainActivity extends Activity {
