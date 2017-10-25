@@ -16,14 +16,14 @@
         <Button
             android:id="@+id/button_login"
             android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:text="Login"
-            android:background="@color/colorPrimaryLight"
-            tools:layout_editor_absoluteX="136dp"
-            tools:layout_editor_absoluteY="231dp"
-            android:layout_marginTop="46dp"
+            android:layout_height="30dp"
             android:layout_below="@+id/checkbox_save_password"
-            android:layout_centerHorizontal="true" />
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="46dp"
+            android:background="@color/colorPrimaryLight"
+            android:text="Login"
+            tools:layout_editor_absoluteX="136dp"
+            tools:layout_editor_absoluteY="231dp" />
 
         <CheckBox
             android:id="@+id/checkbox_save_password"
