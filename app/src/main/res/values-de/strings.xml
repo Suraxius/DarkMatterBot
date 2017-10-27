@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Dark Matter Bot</string>
+    <string name="username">Benutzername</string>
+    <string name="password">Passwort</string>
+    <string name="save_password">Passwort Speichern</string>
+    <string name="login">Anmelden</string>
+</resources>
