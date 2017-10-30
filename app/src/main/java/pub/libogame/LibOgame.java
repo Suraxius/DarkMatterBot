@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 public class LibOgame
 {
-    private final DataStore       ds    = new DataStore(); //deprecated
     private final ActionGenerator ag    = new ActionGenerator( this );
     protected ArrayList<Planet> planets = new ArrayList<Planet>();
     protected boolean initialized       = false;
@@ -55,7 +54,7 @@ public class LibOgame
                 this.serverIndex = serverIndex;
                 ReturnCode rc = ag.login();
                 if(rc == ReturnCode.SUCCESS)
-                    ds.authenticated = true;
+                    auth.authenticated = true;
                 return rc;
             }
             else return ReturnCode.Error(0, "Login Function: server index, username or password are not set!");
@@ -66,7 +65,7 @@ public class LibOgame
     {
         protected String   name;
         protected int      id;
-        protected int[]    coordinates            = new int[3];
+        protected int[]    coordinates               = new int[3];
         public final Resource metal                  = new Resource();
         public final Resource crystal                = new Resource();
         public final Resource deuterium              = new Resource();
@@ -117,9 +116,9 @@ public class LibOgame
 
         public Planet( String name ) { this.name = name; }
 
-        public String   getName()                   { return name;                   }
-        public int      getId()                     { return id;                     }
-        public int[]    getCoordinates()            { return coordinates;            }
+        public String   getName()                   { return name;        }
+        public int      getId()                     { return id;          }
+        public int[]    getCoordinates()            { return coordinates; }
 
         public static class Resource {
             public int count;
@@ -133,11 +132,11 @@ public class LibOgame
             protected int deuteriumNeeded;
             protected int energyNeeded;
 
-            public int count() { return count; }
-            public int metalNeeded() { return metalNeeded; }
-            public int crystalNeeded() { return crystalNeeded; }
+            public int count()           { return count;           }
+            public int metalNeeded()     { return metalNeeded;     }
+            public int crystalNeeded()   { return crystalNeeded;   }
             public int deuteriumNeeded() { return deuteriumNeeded; }
-            public int energyNeeded() { return energyNeeded; }
+            public int energyNeeded()    { return energyNeeded;    }
 
         }
         public static class Plant extends Upgradable {}
@@ -147,9 +146,9 @@ public class LibOgame
     public static class Research
     {
         protected Technology energyTechnology = new Technology();
-    }
 
-    public static class Technology extends Upgradable {}
+        public static class Technology extends Upgradable {}
+    }
 
     public static abstract class Upgradable {
         protected int currentLevel;

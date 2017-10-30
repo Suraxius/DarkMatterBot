@@ -7,8 +7,8 @@ import java.io.IOException;
 
 /*
 ** METHODS IN THIS CLASS SHOULD NOT READ NOR WRITE TO DATASTORE! DATAPARSER WILL DO THAT!
-** We asume that dataValidator has dealt with checking the datastore so if a function
-** is called from this class, then we can asume the data in datastore to be reliable.
+** We assume that dataValidator has dealt with checking the datastore so if a function
+** is called in this class, we can assume the data in datastore to be reliable.
 */
 
 class ActionGenerator
@@ -16,7 +16,6 @@ class ActionGenerator
     private HTTPSClient hc;
     private DataParser  dp;
     private LibOgame    context;
-    private String username, password;
 
     public ActionGenerator( LibOgame context ) {
 	this.hc = new HTTPSClient();
