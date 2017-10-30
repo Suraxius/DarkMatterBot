@@ -1,6 +1,6 @@
 package pub.libogame;
 
-class Research
+public class Research
 {
     protected Technology energyTechnology = new Technology();
 

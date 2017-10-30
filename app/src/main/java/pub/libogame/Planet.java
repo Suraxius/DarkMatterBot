@@ -1,6 +1,6 @@
 package pub.libogame;
 
-class Planet
+public class Planet
 {
     protected String   name;
     protected int      id;
@@ -60,8 +60,10 @@ class Planet
     public int[]    getCoordinates()            { return coordinates; }
 
     public static class Resource {
-        public int count;
-        public int productionRatePerHour;
+        protected int count;
+        protected int productionRatePerHour;
+        public int count() { return count; }
+        public int productionRatePerHour() { return productionRatePerHour; }
     }
 
     public static class Asset {

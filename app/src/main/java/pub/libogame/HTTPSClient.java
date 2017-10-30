@@ -14,16 +14,18 @@ import java.io.DataOutputStream;
 
 class HTTPSClient
 {
-    private String postData;
-    private String returnedData;
+    private   String postData;
+    protected String returnedData;
+    protected String requestURL;
 
     public HTTPSClient() {}
 
-    public ReturnCode runRequest( String urlString ) {
-        if( urlString.equals("") || urlString == null ) return ReturnCode.Error(0, "HttpsClient: url not set!");
+    public ReturnCode runRequest() throws LibOgameException {
+        if( requestURL == null || requestURL.equals("") )
+            throw new LibOgameException("HttpsClient.runRequest(): url not set!");
         try {
             CookieHandler.setDefault(new CookieManager());
-            URL url = new URL(urlString);
+            URL url = new URL(requestURL);
             HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
             connection.setRequestProperty("User-Agent", "Mozilla/5.0 (X11; Linux x86_64; rv:10.0) Gecko/20100101 Firefox/10.0");
             connection.setInstanceFollowRedirects(true);
@@ -40,14 +42,19 @@ class HTTPSClient
             }
 
             BufferedReader br = new BufferedReader( new InputStreamReader( connection.getInputStream() ) );
+            //Replace with new string to remove old data:
+            if(returnedData == null || !returnedData.equals("")) returnedData = new String();
             String tmp;
             while( (tmp = br.readLine()) != null ) returnedData += tmp;
             br.close();
             connection.disconnect();
         }
-        catch(MalformedURLException e) { return ReturnCode.Error(0, "RunRequest: MalformedURLException"); }
-        catch (IOException e) { return ReturnCode.Error(0, "RunRequest: IOException"); }
-        catch (Exception e) { return ReturnCode.Error(0, "RunRequest: Undefined Exception"); }
+        catch(MalformedURLException e) {
+            throw new LibOgameException("HttpsClient.runRequest(): MalformedURLException"); }
+        catch (IOException e) {
+            throw new LibOgameException("HttpsClient.runRequest(): IOException"); }
+        catch (Exception e) {
+            throw new LibOgameException("HttpsClient.runRequest(): Undefined Exception"); }
 
         return ReturnCode.SUCCESS;
     }
