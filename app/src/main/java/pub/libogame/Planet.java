@@ -2,6 +2,7 @@ package pub.libogame;
 
 public class Planet
 {
+    protected LibOgame context;
     protected String   name;
     protected int      id;
     protected int[]    coordinates               = new int[3];
@@ -10,50 +11,292 @@ public class Planet
     public final Resource deuterium              = new Resource();
     public final Resource darkMatter             = new Resource();
     public final Resource energy                 = new Resource();
-    public final Plant    metalMine              = new Plant();
-    public final Plant    crystalMine            = new Plant();
-    public final Plant    deuteriumSynthesizer   = new Plant();
-    public final Plant    solarPowerPlant        = new Plant();
-    public final Plant    fusionReactor          = new Plant();
-    public final Plant    solarSatalite          = new Plant();
-    public final Plant    metalStorage           = new Plant();
-    public final Plant    crystalStorage         = new Plant();
-    public final Plant    DeuteriumStorage       = new Plant();
-    public final Facility roboticsFactory        = new Facility();
-    public final Facility shipyard               = new Facility();
-    public final Facility reasearchLab           = new Facility();
-    public final Facility allianceDepot          = new Facility();
-    public final Facility missileSilo            = new Facility();
-    public final Facility naniteFactory          = new Facility();
-    public final Facility terraformer            = new Facility();
-    public final Facility spaceDock              = new Facility();
-    //Ships:
-    public final Asset    lightFighters          = new Asset();
-    public final Asset    heavyFighters          = new Asset();
-    public final Asset    cruisers               = new Asset();
-    public final Asset    battleships            = new Asset();
-    public final Asset    battlecruisers         = new Asset();
-    public final Asset    bombers                = new Asset();
-    public final Asset    destroyers             = new Asset();
-    public final Asset    deathstars             = new Asset();
-    public final Asset    smallCargos            = new Asset();
-    public final Asset    largeCargos            = new Asset();
-    public final Asset    colonyShips            = new Asset();
-    public final Asset    recyclers              = new Asset();
-    public final Asset    espionageProbes        = new Asset();
-    //Defences:
-    public final Asset    rocketLaunchers        = new Asset();
-    public final Asset    lightLasers            = new Asset();
-    public final Asset    heavyLasers            = new Asset();
-    public final Asset    gaussCannons           = new Asset();
-    public final Asset    ionCannons             = new Asset();
-    public final Asset    plasmaTurrets          = new Asset();
-    public final Asset    smallShield            = new Asset();
-    public final Asset    largeShield            = new Asset();
-    public final Asset    antiBallisticMissiles  = new Asset();
-    public final Asset    interplanetaryMissiles = new Asset();
 
-    public Planet( String name ) { this.name = name; }
+    public final Upgradable metalMine = new Upgradable() {
+        @Override
+        public void upgrade() {
+
+        }
+    };
+
+    public final Upgradable crystalMine = new Upgradable() {
+        @Override
+        public void upgrade() {
+
+        }
+    };
+
+    public final Upgradable deuteriumSynthesizer = new Upgradable() {
+        @Override
+        public void upgrade() {
+
+        }
+    };
+
+    public final Upgradable solarPowerPlant = new Upgradable() {
+        @Override
+        public void upgrade() {
+
+        }
+    };
+
+    public final Upgradable fusionReactor = new Upgradable() {
+        @Override
+        public void upgrade() {
+
+        }
+    };
+
+    public final Upgradable solarSatalite = new Upgradable() {
+        @Override
+        public void upgrade() {
+
+        }
+    };
+
+    public final Upgradable metalStorage = new Upgradable() {
+        @Override
+        public void upgrade() {
+
+        }
+    };
+
+    public final Upgradable crystalStorage = new Upgradable() {
+        @Override
+        public void upgrade() {
+
+        }
+    };
+
+    public final Upgradable DeuteriumStorage = new Upgradable() {
+        @Override
+        public void upgrade() {
+
+        }
+    };
+
+    public final Upgradable roboticsFactory = new Upgradable() {
+        @Override
+        public void upgrade() {
+
+        }
+    };
+
+    public final Upgradable shipyard = new Upgradable() {
+        @Override
+        public void upgrade() {
+
+        }
+    };
+
+    public final Upgradable reasearchLab = new Upgradable() {
+        @Override
+        public void upgrade() {
+
+        }
+    };
+
+    public final Upgradable allianceDepot = new Upgradable() {
+        @Override
+        public void upgrade() {
+
+        }
+    };
+
+    public final Upgradable missileSilo = new Upgradable() {
+        @Override
+        public void upgrade() {
+
+        }
+    };
+
+    public final Upgradable naniteFactory = new Upgradable() {
+        @Override
+        public void upgrade() {
+
+        }
+    };
+
+    public final Upgradable terraformer = new Upgradable() {
+        @Override
+        public void upgrade() {
+
+        }
+    };
+
+    public final Upgradable spaceDock = new Upgradable() {
+        @Override
+        public void upgrade() {
+
+        }
+    };
+
+    //Ships:
+    public final Asset lightFighters = new Asset() {
+        @Override
+        public void upgrade() {
+
+        }
+    };
+
+    public final Asset heavyFighters = new Asset() {
+        @Override
+        public void upgrade() {
+
+        }
+    };
+
+    public final Asset cruisers = new Asset() {
+        @Override
+        public void upgrade() {
+
+        }
+    };
+
+    public final Asset battleships = new Asset() {
+        @Override
+        public void upgrade() {
+
+        }
+    };
+
+    public final Asset battlecruisers = new Asset() {
+        @Override
+        public void upgrade() {
+
+        }
+    };
+
+    public final Asset bombers = new Asset() {
+        @Override
+        public void upgrade() {
+
+        }
+    };
+
+    public final Asset destroyers = new Asset() {
+        @Override
+        public void upgrade() {
+
+        }
+    };
+
+    public final Asset deathstars = new Asset() {
+        @Override
+        public void upgrade() {
+
+        }
+    };
+
+    public final Asset smallCargos = new Asset() {
+        @Override
+        public void upgrade() {
+
+        }
+    };
+
+    public final Asset largeCargos = new Asset() {
+        @Override
+        public void upgrade() {
+
+        }
+    };
+
+    public final Asset colonyShips = new Asset() {
+        @Override
+        public void upgrade() {
+
+        }
+    };
+
+    public final Asset recyclers = new Asset() {
+        @Override
+        public void upgrade() {
+
+        }
+    };
+
+    public final Asset espionageProbes = new Asset() {
+        @Override
+        public void upgrade() {
+
+        }
+    };
+
+    //Defences:
+    public final Asset rocketLaunchers = new Asset() {
+        @Override
+        public void upgrade() {
+
+        }
+    };
+    public final Asset lightLasers = new Asset() {
+        @Override
+        public void upgrade() {
+
+        }
+    };
+
+    public final Asset heavyLasers = new Asset() {
+        @Override
+        public void upgrade() {
+
+        }
+    };
+
+    public final Asset gaussCannons = new Asset() {
+        @Override
+        public void upgrade() {
+
+        }
+    };
+
+    public final Asset ionCannons = new Asset() {
+        @Override
+        public void upgrade() {
+
+        }
+    };
+
+    public final Asset plasmaTurrets = new Asset() {
+        @Override
+        public void upgrade() {
+
+        }
+    };
+
+    public final Asset smallShield = new Asset() {
+        @Override
+        public void upgrade() {
+
+        }
+    };
+
+    public final Asset largeShield = new Asset() {
+        @Override
+        public void upgrade() {
+
+        }
+    };
+
+    public final Asset antiBallisticMissiles = new Asset() {
+        @Override
+        public void upgrade() {
+
+        }
+    };
+
+    public final Asset interplanetaryMissiles = new Asset() {
+        @Override
+        public void upgrade() throws LibOgameException {
+
+        }
+    };
+
+    public Planet( LibOgame context, String name ) {
+        this.name = name;
+        this.context = context;
+    }
 
     public String   getName()                   { return name;        }
     public int      getId()                     { return id;          }
@@ -66,12 +309,14 @@ public class Planet
         public int productionRatePerHour() { return productionRatePerHour; }
     }
 
-    public static class Asset {
+    public abstract static class Asset {
         protected int count;
         protected int metalNeeded;
         protected int crystalNeeded;
         protected int deuteriumNeeded;
         protected int energyNeeded;
+
+        public abstract void upgrade() throws LibOgameException;
 
         public int count()           { return count;           }
         public int metalNeeded()     { return metalNeeded;     }
@@ -80,6 +325,4 @@ public class Planet
         public int energyNeeded()    { return energyNeeded;    }
 
     }
-    public static class Plant extends Upgradable {}
-    public static class Facility extends Upgradable {}
 }

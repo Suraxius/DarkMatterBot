@@ -25,7 +25,7 @@ public class LibOgame
             hc.runRequest();
             if(hc.returnedData == null || !hc.returnedData.equals(""))
                 Logger.println("LibOgame.constr.", "Data downloaded!");
-            planets.add(new Planet("Test World")); //Add test planet
+            planets.add(new Planet(this, "Test World")); //Add test planet
             //Need to go get the Ogame homepage so we can populate the server list.
         }
     }

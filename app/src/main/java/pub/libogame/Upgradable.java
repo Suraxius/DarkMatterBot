@@ -7,6 +7,8 @@ abstract class Upgradable {
     protected int deuteriumNeeded;
     protected int energyNeeded;
 
+    public abstract void upgrade() throws LibOgameException;
+
     public int getCurrentLevel()    { return currentLevel;    }
     public int getMetalNeeded()     { return metalNeeded;     }
     public int getCrystalNeeded()   { return crystalNeeded;   }
