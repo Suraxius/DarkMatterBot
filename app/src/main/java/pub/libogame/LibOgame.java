@@ -2,12 +2,16 @@ package pub.libogame;
 
 import java.util.ArrayList;
 
+/**
+ * Entry point for LibOgame. Instantiate this class
+ * and access all functionality through it.
+ */
 public class LibOgame
 {
     protected final HTTPSClient       hc          = new HTTPSClient();
 	protected final DataParser        dp          = new DataParser( this );
     protected final ArrayList<Planet> planets     = new ArrayList<>();
-    public    final Auth              auth        = new Auth();
+    public    final Authentication    auth        = new Authentication();
     public    final Research          research    = new Research();
     public    final ServerList        servers     = new ServerList();
 
@@ -15,6 +19,11 @@ public class LibOgame
     public Planet  planet(int index) { return planets.get(index); }
     public int     planetCount()     { return planets.size();     }
 
+    /**
+     * LibOgame Constructor
+     * @param ogameWebsiteURL The https link of the Ogame login page to interface with.
+     * @throws LibOgameException
+     */
     public LibOgame( String ogameWebsiteURL ) throws LibOgameException
     {
         if(ogameWebsiteURL == null) {
@@ -30,6 +39,9 @@ public class LibOgame
         }
     }
 
+    /**
+     * A Custom List Class for storage and access of ogame servers links and associated names.
+     */
     public static class ServerList {
         private ArrayList<String[]> list = new ArrayList<>();
         protected void   add( String name, String value ) { list.add( new String[] {name, value} ); }
@@ -39,24 +51,61 @@ public class LibOgame
         public    int    count()                          { return list.size();                     }
     }
 
-    public class Auth
+    /**
+     * Authentication Handler Class. Provides the methods and properties required to
+     * authenticate against an Ogame Server and a mechanism for the rest of the library
+     * to keep track of the authentication status.
+     */
+    public class Authentication
     {
         protected String  username;
         protected String  password;
         protected int     serverIndex;
         protected boolean authenticated = false;
 
+        /**
+         * Provides access to the "authenticated" flag which indicates wether or
+         * not authentication against the Ogame Server succeeded or not.
+         * @return Returns the value of the "authenticated" flag property.
+         */
         public boolean isAuthenticated() { return authenticated; }
 
-        public ReturnCode login( int serverIndex, String username, String password )
-                throws LibOgameException
+        /**
+         * Sets the server index, username and password to be used for authentication.
+         * @param serverIndex the index location of the server to use from the server list.
+         * @param username Username to be used.
+         * @param password Password to be used.
+         * @return Returns ErrorCode.REFUSED if invalid uparameter was
+         * specified and ReturnCode.SUCCESS otherwise.
+         */
+        public ReturnCode setCredentials( int serverIndex, String username, String password )
         {
-            if(serverIndex > 0 &&
-               username != null && !username.equals("") &&
-               password != null && !password.equals("") )
+            if( serverIndex >  0 &&
+                serverIndex <  servers.count() &&
+                username    != null &&
+                password    != null &&
+                !username.equals("") &&
+                !password.equals("")
+                )
             {
-                this.username = username;
-                this.password = password;
+                this.serverIndex = serverIndex;
+                this.username    = username;
+                this.password    = password;
+                return ReturnCode.SUCCESS;
+            }
+            else return ReturnCode.REFUSED;
+        }
+
+        /**
+         * Authenticates against an OGame server.
+         * @return Returns ErrorCode.SUCCESS on Success or ErrorCode.Error otherwise.
+         * @throws LibOgameException
+         */
+        public ReturnCode login() throws LibOgameException
+        {
+            if(serverIndex > 0 && serverIndex < servers.count() &&
+                   username != null && password != null
+                ) {
                 this.serverIndex = serverIndex;
                 //Do the login stuff:
                 hc.addPostData("kid", "");
@@ -72,9 +121,29 @@ public class LibOgame
                         dp.parse(tmp);
                         return ReturnCode.SUCCESS;
                     }
-                    else throw new LibOgameException("auth.login(): No HTML Content to work with!");
+                    else throw new LibOgameException("auth.login():" +
+                            "No HTML Content to work with!");
                 } else throw new LibOgameException("auth.login(): Login failed!");
-            } else throw new LibOgameException("auth.login(): server index, username or password are not set!");
+            } else throw new LibOgameException("auth.login():" +
+                    "server index, username or password are not set!");
+        }
+
+        /**
+         *
+         * @param serverIndex Index position of Server to authenticate against.
+         * @param username Username to use for authentication.
+         * @param password Password to  use for authentication.
+         * @return Returns ReturnCode.Refused if a parameter is invalid or the same return
+         * codes as login() without parameters otherwise.
+         * @throws LibOgameException
+         */
+        public ReturnCode login( int serverIndex, String username, String password )
+                throws LibOgameException
+        {
+            if( setCredentials( serverIndex, username, password ) == ReturnCode.SUCCESS ) {
+                return login();
+            }
+            else return ReturnCode.REFUSED;
         }
     }
 }
