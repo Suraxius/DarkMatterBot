@@ -2,116 +2,123 @@ package pub.libogame;
 
 public class Research
 {
-    public final Upgradable energyTechnology = new Upgradable() {
+    public final Technology energyTechnology = new Technology() {
         @Override
-        public void upgrade() throws LibOgameException {
-
+        public ReturnCode upgrade() throws LibOgameException {
+            return ReturnCode.REFUSED;
         }
     };
 
-    public final Upgradable laserTechnology = new Upgradable() {
+    public final Technology laserTechnology = new Technology() {
         @Override
-        public void upgrade() throws LibOgameException {
-
+        public ReturnCode upgrade() throws LibOgameException {
+            return ReturnCode.REFUSED;
         }
     };
 
-    public final Upgradable ionTechnology = new Upgradable() {
+    public final Technology ionTechnology = new Technology() {
         @Override
-        public void upgrade() throws LibOgameException {
-
+        public ReturnCode upgrade() throws LibOgameException {
+            return ReturnCode.REFUSED;
         }
     };
 
-    public final Upgradable hyperspaceTechnology = new Upgradable() {
+    public final Technology hyperspaceTechnology = new Technology() {
         @Override
-        public void upgrade() throws LibOgameException {
-
+        public ReturnCode upgrade() throws LibOgameException {
+            return ReturnCode.REFUSED;
         }
     };
 
-    public final Upgradable plasmaTechnology = new Upgradable() {
+    public final Technology plasmaTechnology = new Technology() {
         @Override
-        public void upgrade() throws LibOgameException {
-
+        public ReturnCode upgrade() throws LibOgameException {
+            return ReturnCode.REFUSED;
         }
     };
 
-    public final Upgradable combustionDrive = new Upgradable() {
+    public final Technology combustionDrive = new Technology() {
         @Override
-        public void upgrade() throws LibOgameException {
-
+        public ReturnCode upgrade() throws LibOgameException {
+            return ReturnCode.REFUSED;
         }
     };
 
-    public final Upgradable impulseDrive = new Upgradable() {
+    public final Technology impulseDrive = new Technology() {
         @Override
-        public void upgrade() throws LibOgameException {
-
+        public ReturnCode upgrade() throws LibOgameException {
+            return ReturnCode.REFUSED;
         }
     };
 
-    public final Upgradable hyperspaceDrive = new Upgradable() {
+    public final Technology hyperspaceDrive = new Technology() {
         @Override
-        public void upgrade() throws LibOgameException {
-
+        public ReturnCode upgrade() throws LibOgameException {
+            return ReturnCode.REFUSED;
         }
     };
 
-    public final Upgradable espionageTechnology = new Upgradable() {
+    public final Technology espionageTechnology = new Technology() {
         @Override
-        public void upgrade() throws LibOgameException {
-
+        public ReturnCode upgrade() throws LibOgameException {
+            return ReturnCode.REFUSED;
         }
     };
 
-    public final Upgradable computerTechnology = new Upgradable() {
+    public final Technology computerTechnology = new Technology() {
         @Override
-        public void upgrade() throws LibOgameException {
-
+        public ReturnCode upgrade() throws LibOgameException {
+            return ReturnCode.REFUSED;
         }
     };
 
-    public final Upgradable astrophysics = new Upgradable() {
+    public final Technology astrophysics = new Technology() {
         @Override
-        public void upgrade() throws LibOgameException {
-
+        public ReturnCode upgrade() throws LibOgameException {
+            return ReturnCode.REFUSED;
         }
     };
 
-    public final Upgradable intergalacticResearchCenter = new Upgradable() {
+    public final Technology intergalacticResearchCenter = new Technology() {
         @Override
-        public void upgrade() throws LibOgameException {
-
+        public ReturnCode upgrade() throws LibOgameException {
+            return ReturnCode.REFUSED;
         }
     };
 
-    public final Upgradable gravitonTechnology = new Upgradable() {
+    public final Technology gravitonTechnology = new Technology() {
         @Override
-        public void upgrade() throws LibOgameException {
-
+        public ReturnCode upgrade() throws LibOgameException {
+            return ReturnCode.REFUSED;
         }
     };
 
-    public final Upgradable weaponsTechnology = new Upgradable() {
+    public final Technology weaponsTechnology = new Technology() {
         @Override
-        public void upgrade() throws LibOgameException {
-
+        public ReturnCode upgrade() throws LibOgameException {
+            return ReturnCode.REFUSED;
         }
     };
 
-    public final Upgradable shieldingTechnology = new Upgradable() {
+    public final Technology shieldingTechnology = new Technology() {
         @Override
-        public void upgrade() throws LibOgameException {
-
+        public ReturnCode upgrade() throws LibOgameException {
+            return ReturnCode.REFUSED;
         }
     };
 
-    public final Upgradable armourTechnology = new Upgradable() {
+    public final Technology armourTechnology = new Technology() {
         @Override
-        public void upgrade() throws LibOgameException {
-
+        public ReturnCode upgrade() throws LibOgameException {
+            return ReturnCode.REFUSED;
         }
     };
 
+    public static abstract class Technology extends ResourceUser {
+        protected int currentLevel;
+
+        public int getCurrentLevel() { return currentLevel; }
+
+        public abstract ReturnCode upgrade() throws LibOgameException;
+    }
 }

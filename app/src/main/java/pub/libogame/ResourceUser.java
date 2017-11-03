@@ -1,15 +1,11 @@
 package pub.libogame;
 
-abstract class Upgradable {
-    protected int currentLevel;
+public class ResourceUser {
     protected int metalNeeded;
     protected int crystalNeeded;
     protected int deuteriumNeeded;
     protected int energyNeeded;
 
-    public abstract void upgrade() throws LibOgameException;
-
-    public int getCurrentLevel()    { return currentLevel;    }
     public int getMetalNeeded()     { return metalNeeded;     }
     public int getCrystalNeeded()   { return crystalNeeded;   }
     public int getDeuteriumNeeded() { return deuteriumNeeded; }

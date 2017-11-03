@@ -12,284 +12,369 @@ public class Planet
     public final Resource darkMatter             = new Resource();
     public final Resource energy                 = new Resource();
 
-    public final Upgradable metalMine = new Upgradable() {
+    public final Structure metalMine = new Structure() {
         @Override
-        public void upgrade() {
+        public ReturnCode upgrade() throws LibOgameException {
+            return ReturnCode.REFUSED;
+        }
 
+        @Override
+        public ReturnCode downgrade() throws LibOgameException {
+            return ReturnCode.REFUSED;
         }
     };
 
-    public final Upgradable crystalMine = new Upgradable() {
+    public final Structure crystalMine = new Structure() {
         @Override
-        public void upgrade() {
+        public ReturnCode upgrade() throws LibOgameException {
+            return ReturnCode.REFUSED;
+        }
 
+        @Override
+        public ReturnCode downgrade() throws LibOgameException {
+            return ReturnCode.REFUSED;
         }
     };
 
-    public final Upgradable deuteriumSynthesizer = new Upgradable() {
+    public final Structure deuteriumSynthesizer = new Structure() {
         @Override
-        public void upgrade() {
+        public ReturnCode upgrade() throws LibOgameException {
+            return ReturnCode.REFUSED;
+        }
 
+        @Override
+        public ReturnCode downgrade() throws LibOgameException {
+            return ReturnCode.REFUSED;
         }
     };
 
-    public final Upgradable solarPowerPlant = new Upgradable() {
+    public final Structure solarPowerPlant = new Structure() {
         @Override
-        public void upgrade() {
+        public ReturnCode upgrade() throws LibOgameException {
+            return ReturnCode.REFUSED;
+        }
 
+        @Override
+        public ReturnCode downgrade() throws LibOgameException {
+            return ReturnCode.REFUSED;
         }
     };
 
-    public final Upgradable fusionReactor = new Upgradable() {
+    public final Structure fusionReactor = new Structure() {
         @Override
-        public void upgrade() {
+        public ReturnCode upgrade() throws LibOgameException {
+            return ReturnCode.REFUSED;
+        }
 
+        @Override
+        public ReturnCode downgrade() throws LibOgameException {
+            return ReturnCode.REFUSED;
         }
     };
 
-    public final Upgradable solarSatalite = new Upgradable() {
+    public final Structure solarSatalite = new Structure() {
         @Override
-        public void upgrade() {
+        public ReturnCode upgrade() throws LibOgameException {
+            return ReturnCode.REFUSED;
+        }
 
+        @Override
+        public ReturnCode downgrade() throws LibOgameException {
+            return ReturnCode.REFUSED;
         }
     };
 
-    public final Upgradable metalStorage = new Upgradable() {
+    public final Structure metalStorage = new Structure() {
         @Override
-        public void upgrade() {
+        public ReturnCode upgrade() throws LibOgameException {
+            return ReturnCode.REFUSED;
+        }
 
+        @Override
+        public ReturnCode downgrade() throws LibOgameException {
+            return ReturnCode.REFUSED;
         }
     };
 
-    public final Upgradable crystalStorage = new Upgradable() {
+    public final Structure crystalStorage = new Structure() {
         @Override
-        public void upgrade() {
+        public ReturnCode upgrade() throws LibOgameException {
+            return ReturnCode.REFUSED;
+        }
 
+        @Override
+        public ReturnCode downgrade() throws LibOgameException {
+            return ReturnCode.REFUSED;
         }
     };
 
-    public final Upgradable DeuteriumStorage = new Upgradable() {
+    public final Structure DeuteriumStorage = new Structure() {
         @Override
-        public void upgrade() {
+        public ReturnCode upgrade() throws LibOgameException {
+            return ReturnCode.REFUSED;
+        }
 
+        @Override
+        public ReturnCode downgrade() throws LibOgameException {
+            return ReturnCode.REFUSED;
         }
     };
 
-    public final Upgradable roboticsFactory = new Upgradable() {
+    public final Structure roboticsFactory = new Structure() {
         @Override
-        public void upgrade() {
+        public ReturnCode upgrade() throws LibOgameException {
+            return ReturnCode.REFUSED;
+        }
 
+        @Override
+        public ReturnCode downgrade() throws LibOgameException {
+            return ReturnCode.REFUSED;
         }
     };
 
-    public final Upgradable shipyard = new Upgradable() {
+    public final Structure shipyard = new Structure() {
         @Override
-        public void upgrade() {
+        public ReturnCode upgrade() throws LibOgameException {
+            return ReturnCode.REFUSED;
+        }
 
+        @Override
+        public ReturnCode downgrade() throws LibOgameException {
+            return ReturnCode.REFUSED;
         }
     };
 
-    public final Upgradable reasearchLab = new Upgradable() {
+    public final Structure reasearchLab = new Structure() {
         @Override
-        public void upgrade() {
+        public ReturnCode upgrade() throws LibOgameException {
+            return ReturnCode.REFUSED;
+        }
 
+        @Override
+        public ReturnCode downgrade() throws LibOgameException {
+            return ReturnCode.REFUSED;
         }
     };
 
-    public final Upgradable allianceDepot = new Upgradable() {
+    public final Structure allianceDepot = new Structure() {
         @Override
-        public void upgrade() {
+        public ReturnCode upgrade() throws LibOgameException {
+            return ReturnCode.REFUSED;
+        }
 
+        @Override
+        public ReturnCode downgrade() throws LibOgameException {
+            return ReturnCode.REFUSED;
         }
     };
 
-    public final Upgradable missileSilo = new Upgradable() {
+    public final Structure missileSilo = new Structure() {
         @Override
-        public void upgrade() {
+        public ReturnCode upgrade() throws LibOgameException {
+            return ReturnCode.REFUSED;
+        }
 
+        @Override
+        public ReturnCode downgrade() throws LibOgameException {
+            return ReturnCode.REFUSED;
         }
     };
 
-    public final Upgradable naniteFactory = new Upgradable() {
+    public final Structure naniteFactory = new Structure() {
         @Override
-        public void upgrade() {
+        public ReturnCode upgrade() throws LibOgameException {
+            return ReturnCode.REFUSED;
+        }
 
+        @Override
+        public ReturnCode downgrade() throws LibOgameException {
+            return ReturnCode.REFUSED;
         }
     };
 
-    public final Upgradable terraformer = new Upgradable() {
+    public final Structure terraformer = new Structure() {
         @Override
-        public void upgrade() {
+        public ReturnCode upgrade() throws LibOgameException {
+            return ReturnCode.REFUSED;
+        }
 
+        @Override
+        public ReturnCode downgrade() throws LibOgameException {
+            return ReturnCode.REFUSED;
         }
     };
 
-    public final Upgradable spaceDock = new Upgradable() {
+    public final Structure spaceDock = new Structure() {
         @Override
-        public void upgrade() {
+        public ReturnCode upgrade() throws LibOgameException {
+            return ReturnCode.REFUSED;
+        }
 
+        @Override
+        public ReturnCode downgrade() throws LibOgameException {
+            return ReturnCode.REFUSED;
         }
     };
 
     //Ships:
     public final Asset lightFighters = new Asset() {
         @Override
-        public void upgrade() {
-
+        public ReturnCode build( int amount ) {
+            return ReturnCode.REFUSED;
         }
     };
 
     public final Asset heavyFighters = new Asset() {
         @Override
-        public void upgrade() {
-
+        public ReturnCode build( int amount ) {
+            return ReturnCode.REFUSED;
         }
     };
 
     public final Asset cruisers = new Asset() {
         @Override
-        public void upgrade() {
-
+        public ReturnCode build( int amount ) {
+            return ReturnCode.REFUSED;
         }
     };
 
     public final Asset battleships = new Asset() {
         @Override
-        public void upgrade() {
-
+        public ReturnCode build( int amount ) {
+            return ReturnCode.REFUSED;
         }
     };
 
     public final Asset battlecruisers = new Asset() {
         @Override
-        public void upgrade() {
-
+        public ReturnCode build( int amount ) {
+            return ReturnCode.REFUSED;
         }
     };
 
     public final Asset bombers = new Asset() {
         @Override
-        public void upgrade() {
-
+        public ReturnCode build( int amount ) {
+            return ReturnCode.REFUSED;
         }
     };
 
     public final Asset destroyers = new Asset() {
         @Override
-        public void upgrade() {
-
+        public ReturnCode build( int amount ) {
+            return ReturnCode.REFUSED;
         }
     };
 
     public final Asset deathstars = new Asset() {
         @Override
-        public void upgrade() {
-
+        public ReturnCode build( int amount ) {
+            return ReturnCode.REFUSED;
         }
     };
 
     public final Asset smallCargos = new Asset() {
         @Override
-        public void upgrade() {
-
+        public ReturnCode build( int amount ) {
+            return ReturnCode.REFUSED;
         }
     };
 
     public final Asset largeCargos = new Asset() {
         @Override
-        public void upgrade() {
-
+        public ReturnCode build( int amount ) {
+            return ReturnCode.REFUSED;
         }
     };
 
     public final Asset colonyShips = new Asset() {
         @Override
-        public void upgrade() {
-
+        public ReturnCode build( int amount ) {
+            return ReturnCode.REFUSED;
         }
     };
 
     public final Asset recyclers = new Asset() {
         @Override
-        public void upgrade() {
-
+        public ReturnCode build( int amount ) {
+            return ReturnCode.REFUSED;
         }
     };
 
     public final Asset espionageProbes = new Asset() {
         @Override
-        public void upgrade() {
-
+        public ReturnCode build( int amount ) {
+            return ReturnCode.REFUSED;
         }
     };
 
     //Defences:
     public final Asset rocketLaunchers = new Asset() {
         @Override
-        public void upgrade() {
-
+        public ReturnCode build( int amount ) {
+            return ReturnCode.REFUSED;
         }
     };
     public final Asset lightLasers = new Asset() {
         @Override
-        public void upgrade() {
-
+        public ReturnCode build( int amount ) {
+            return ReturnCode.REFUSED;
         }
     };
 
     public final Asset heavyLasers = new Asset() {
         @Override
-        public void upgrade() {
-
+        public ReturnCode build( int amount ) {
+            return ReturnCode.REFUSED;
         }
     };
 
     public final Asset gaussCannons = new Asset() {
         @Override
-        public void upgrade() {
-
+        public ReturnCode build( int amount ) {
+            return ReturnCode.REFUSED;
         }
     };
 
     public final Asset ionCannons = new Asset() {
         @Override
-        public void upgrade() {
-
+        public ReturnCode build( int amount ) {
+            return ReturnCode.REFUSED;
         }
     };
 
     public final Asset plasmaTurrets = new Asset() {
         @Override
-        public void upgrade() {
-
+        public ReturnCode build( int amount ) {
+            return ReturnCode.REFUSED;
         }
     };
 
     public final Asset smallShield = new Asset() {
         @Override
-        public void upgrade() {
-
+        public ReturnCode build( int amount ) {
+            return ReturnCode.REFUSED;
         }
     };
 
     public final Asset largeShield = new Asset() {
         @Override
-        public void upgrade() {
-
+        public ReturnCode build( int amount ) {
+            return ReturnCode.REFUSED;
         }
     };
 
     public final Asset antiBallisticMissiles = new Asset() {
         @Override
-        public void upgrade() {
-
+        public ReturnCode build( int amount ) {
+            return ReturnCode.REFUSED;
         }
     };
 
     public final Asset interplanetaryMissiles = new Asset() {
         @Override
-        public void upgrade() throws LibOgameException {
-
+        public ReturnCode build( int amount ) throws LibOgameException {
+            return ReturnCode.REFUSED;
         }
     };
 
@@ -309,20 +394,21 @@ public class Planet
         public int productionRatePerHour() { return productionRatePerHour; }
     }
 
-    public abstract static class Asset {
+    public abstract static class Asset extends ResourceUser {
         protected int count;
-        protected int metalNeeded;
-        protected int crystalNeeded;
-        protected int deuteriumNeeded;
-        protected int energyNeeded;
 
-        public abstract void upgrade() throws LibOgameException;
+        public int count() { return count; }
 
-        public int count()           { return count;           }
-        public int metalNeeded()     { return metalNeeded;     }
-        public int crystalNeeded()   { return crystalNeeded;   }
-        public int deuteriumNeeded() { return deuteriumNeeded; }
-        public int energyNeeded()    { return energyNeeded;    }
+        public abstract ReturnCode build( int amount ) throws LibOgameException;
 
+    }
+
+    public static abstract class Structure extends ResourceUser {
+        protected int currentLevel;
+
+        public int getCurrentLevel() { return currentLevel; }
+
+        public abstract ReturnCode upgrade() throws LibOgameException;
+        public abstract ReturnCode downgrade() throws LibOgameException;
     }
 }
