@@ -3,7 +3,7 @@ package pub.darkmatterbot;
 import pub.libogame.LibOgame;
 import pub.libogame.LibOgameException;
 
-class LibOgameHandler {
+public class LibOgameHandler {
     protected static LibOgame libOgame;
 
     protected static void initialize() throws LibOgameException

@@ -12,7 +12,7 @@ import android.widget.SpinnerAdapter;
 
 import pub.libogame.LibOgame;
 
-class LoginActivity extends Activity {
+public class LoginActivity extends Activity {
     Button _loginButton;
     Spinner _server_dropdown;
     EditText _username;

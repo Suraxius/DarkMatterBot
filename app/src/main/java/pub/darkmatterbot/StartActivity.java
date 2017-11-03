@@ -8,7 +8,7 @@ import android.util.Log;
 
 import pub.libogame.LibOgameException;
 
-class StartActivity extends Activity {
+public class StartActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
