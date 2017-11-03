@@ -2,8 +2,6 @@ package pub.libogame;
 
 import android.util.Log;
 
-import pub.darkmatterbot.OverviewFragment;
-
 class DataParser
 {
     private LibOgame context;

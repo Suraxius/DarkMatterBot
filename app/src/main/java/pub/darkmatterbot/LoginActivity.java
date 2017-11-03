@@ -9,7 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
-public class LoginActivity extends Activity {
+class LoginActivity extends Activity {
     Button _loginButton;
     Spinner _server_dropdown;
     EditText _username;

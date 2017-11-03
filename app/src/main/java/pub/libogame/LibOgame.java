@@ -26,16 +26,16 @@ public class LibOgame
      */
     public LibOgame( String ogameWebsiteURL ) throws LibOgameException
     {
-        if(ogameWebsiteURL == null) {
+        if(ogameWebsiteURL == null || ogameWebsiteURL.equals("")) {
             throw new LibOgameException("Website URL not set!");
         }
         else {
             hc.requestURL = ogameWebsiteURL;
             hc.runRequest();
-            if(hc.returnedData == null || !hc.returnedData.equals(""))
+            if(hc.returnedData != null && !hc.returnedData.equals("")) {
                 Logger.println("LibOgame.constr.", "Data downloaded!");
-            planets.add(new Planet(this, "Test World")); //Add test planet
-            //Need to go get the Ogame homepage so we can populate the server list.
+                dp.parse(hc.returnedData);
+            }
         }
     }
 

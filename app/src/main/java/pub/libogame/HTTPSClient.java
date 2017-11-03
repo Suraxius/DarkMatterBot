@@ -20,7 +20,8 @@ class HTTPSClient
 
     public HTTPSClient() {}
 
-    public ReturnCode runRequest() throws LibOgameException {
+    public ReturnCode runRequest() throws LibOgameException
+    {
         if( requestURL == null || requestURL.equals("") )
             throw new LibOgameException("HttpsClient.runRequest(): url not set!");
         try {
@@ -49,12 +50,8 @@ class HTTPSClient
             br.close();
             connection.disconnect();
         }
-        catch(MalformedURLException e) {
-            throw new LibOgameException("HttpsClient.runRequest(): MalformedURLException"); }
-        catch (IOException e) {
-            throw new LibOgameException("HttpsClient.runRequest(): IOException"); }
         catch (Exception e) {
-            throw new LibOgameException("HttpsClient.runRequest(): Undefined Exception"); }
+            throw new LibOgameException("HttpsClient.runRequest(): " + e.toString()); }
 
         return ReturnCode.SUCCESS;
     }

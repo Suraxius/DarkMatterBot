@@ -8,7 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 
 
-public class MainActivity extends FragmentActivity {
+class MainActivity extends FragmentActivity {
 
     private ViewPager viewPager;
 
