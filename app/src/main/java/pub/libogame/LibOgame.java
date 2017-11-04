@@ -80,17 +80,35 @@ public class LibOgame
          */
         public ReturnCode setCredentials( int serverIndex, String username, String password )
         {
-            if( serverIndex >  0 &&
-                serverIndex <  servers.count() &&
-                username    != null &&
-                password    != null &&
-                !username.equals("") &&
-                !password.equals("")
-                )
-            {
+            if( setUsername(username) == ReturnCode.SUCCESS &&
+                setPassword(password) == ReturnCode.SUCCESS &&
+                setServer(serverIndex) == ReturnCode.SUCCESS)
+            { return ReturnCode.SUCCESS; }
+            else return ReturnCode.REFUSED;
+        }
+
+        public ReturnCode setUsername(String username)
+        {
+            if(username != null && !username.equals("") ) {
+                this.username = username;
+                return ReturnCode.SUCCESS;
+            }
+            else return ReturnCode.REFUSED;
+        }
+
+        public ReturnCode setPassword(String password)
+        {
+            if(password != null && !password.equals("") ) {
+                this.password = password;
+                return ReturnCode.SUCCESS;
+            }
+            else return ReturnCode.REFUSED;
+        }
+
+        public ReturnCode setServer(int serverIndex)
+        {
+            if( serverIndex >  0 && serverIndex <  servers.count() ) {
                 this.serverIndex = serverIndex;
-                this.username    = username;
-                this.password    = password;
                 return ReturnCode.SUCCESS;
             }
             else return ReturnCode.REFUSED;
