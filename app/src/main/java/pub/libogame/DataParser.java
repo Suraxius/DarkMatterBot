@@ -6,15 +6,15 @@ class DataParser
 {
     private LibOgame context;
     private String   pageContent;
-    private LoginPageHandler            loginPageHandler            = new LoginPageHandler();
-    private OverviewPageHandler         overviewPageHandler         = new OverviewPageHandler();
-    private ResourcesPageHandler        resourcesPageHandler        = new ResourcesPageHandler();
-    private ResourceSettingsPageHandler resourceSettingsPageHandler = new ResourceSettingsPageHandler();
-    private FacilitiesPageHandler       facilitiesPageHandler       = new FacilitiesPageHandler();
-    private ResearchPageHandler         researchPageHandler         = new ResearchPageHandler();
-    private ShipyardPageHandler         shipyardPageHandler         = new ShipyardPageHandler();
-    private DefencePageHandler          defencePageHandler          = new DefencePageHandler();
-    private FleetPageHandler            fleetPageHandler            = new FleetPageHandler();
+    private LoginPH            loginPH            = new LoginPH();
+    private OverviewPH         overviewPH         = new OverviewPH();
+    private ResourcesPH        resourcesPH        = new ResourcesPH();
+    private ResourceSettingsPH resourceSettingsPH = new ResourceSettingsPH();
+    private FacilitiesPH       facilitiesPH       = new FacilitiesPH();
+    private ResearchPH         researchPH         = new ResearchPH();
+    private ShipyardPH         shipyardPH         = new ShipyardPH();
+    private DefencePH          defencePH          = new DefencePH();
+    private FleetPH            fleetPH            = new FleetPH();
 
     public DataParser( LibOgame context ) {
         this.context = context;
@@ -24,24 +24,25 @@ class DataParser
         this.pageContent = pageContent;
 
         if (pageContent.contains("<form id=\"loginForm\" name=\"loginForm\" method=\"post\""))
-            loginPageHandler.process();
+            loginPH.process();
         else if (pageContent.contains("<body id=\"overview\""))
-            overviewPageHandler.process();
+            overviewPH.process();
         else if (pageContent.contains("<body id=\"resources\""))
-            resourcesPageHandler.process();
+            resourcesPH.process();
         else if (pageContent.contains("<body id=\"resourceSettings\""))
-            resourceSettingsPageHandler.process();
+            resourceSettingsPH.process();
         else if (pageContent.contains("<body id=\"station\""))
-            facilitiesPageHandler.process();
+            facilitiesPH.process();
         else if (pageContent.contains("<body id=\"research\""))
-            researchPageHandler.process();
+            researchPH.process();
         else if (pageContent.contains("<body id=\"shipyard\""))
-            shipyardPageHandler.process();
+            shipyardPH.process();
         else if (pageContent.contains("<body id=\"defense\""))
-            defencePageHandler.process();
+            defencePH.process();
         else if (pageContent.contains("<body id=\"fleet1\""))
-            fleetPageHandler.process(1);
-        else throw new LibOgameException("DataParser.parse(): HTML content could not be identified!");
+            fleetPH.process(1);
+        else throw new LibOgameException(
+                "DataParser.parse(): HTML content could not be identified!");
     }
     //-----------------------------------
 
@@ -50,7 +51,11 @@ class DataParser
         protected abstract void process();
 
         //Returns the nth occurred of a substring between two other strings.
-        protected String getTagContent(String pageContent, String tagStart, String tagEnd, int accuranceN) {
+        protected String getTagContent(String pageContent,
+                                       String tagStart,
+                                       String tagEnd,
+                                       int accuranceN)
+        {
             if(accuranceN < 1) return null;
             for (int i = 0; i < accuranceN; i++) {
                 int prefixIndex = pageContent.indexOf(tagStart);
@@ -65,14 +70,16 @@ class DataParser
         }
 
         protected String getSelectedPlanet(String pageContent) {
-            return getTagContent(pageContent, "<div id=\"selectedPlanetName\" class=\"textCenter\">", "</div>", 1);
+            return getTagContent(pageContent,
+                    "<div id=\"selectedPlanetName\" class=\"textCenter\">",
+                    "</div>", 1);
         }
     }
 
-    private class LoginPageHandler extends PageHandler
+    private class LoginPH extends PageHandler
     {
         protected void process() {
-            Log.println(Log.WARN, "DataParser", " Hello from LoginPageHandler! ");
+            Log.println(Log.WARN, "DataParser", " Hello from LoginPH! ");
             parseServerList(context, pageContent);
             parseRequestURL(context, pageContent);
         }
@@ -80,90 +87,100 @@ class DataParser
         protected ReturnCode parseServerList(LibOgame context, String pageContent) {
             String entry, value, name;
             int count = 1;
-            while((entry = getTagContent(pageContent, "<option", "</option>", count++)) != null) {
+            while((entry = getTagContent(pageContent, "<option",
+                    "</option>", count++)) != null)
+            {
                 entry = entry.replaceAll("\\s+","");
             	value = getTagContent(entry, "value=\"", "\"", 1);
             	name  = entry.substring(entry.indexOf(">")+1);
 
                 //If name or value could not be parsed, end in error.
                 if(name == null || value == null)
-                	return ReturnCode.Error(0, "DataParser.LoginPageHandler: Failed to Parse the Server List!");
+                	return ReturnCode.Error(0,
+                            "DataParser.LoginPH:" +
+                            "Failed to Parse the Server List!");
                 else
                     context.servers.add(name,value);
             }
             if(context.servers.count() == 0)
-                return ReturnCode.Error(0, "DataParser.LoginPageHandler.parseServerList: Failed to find server List in HTML!");
+                return ReturnCode.Error(0,
+                        "DataParser.LoginPH.parseServerList:" +
+                                "Failed to find server List in HTML!");
             else
                 return ReturnCode.SUCCESS;
         }
         /**/
         private ReturnCode parseRequestURL(LibOgame context, String pageContent) {
-            String str = getTagContent(pageContent, "<form id=\"loginForm\" name=\"loginForm\" method=\"post\" action=\"", "\">", 1);
+            String str = getTagContent(pageContent,
+                    "<form id=\"loginForm\" name=\"loginForm\" method=\"post\" action=\"",
+                    "\">", 1);
             if(str != null) {
-                context.hc.requestURL = str;
+                context.hc.setURL(str);
                 return ReturnCode.SUCCESS;
             }
-            else return ReturnCode.Error(0, "DataParser.parseRequestURL: Unable to find HTML Tag to parse.");
+            else return ReturnCode.Error( 0,
+                    "DataParser.parseRequestURL: Unable to find HTML Tag to parse.");
         }
     }
 
-    private class OverviewPageHandler extends PageHandler
+    private class OverviewPH extends PageHandler
     {
         protected void process() {
-            Log.println(Log.WARN, "DataParser", "Hello from OverviewPageHandler!");
+            Log.println(Log.WARN, "DataParser", "Hello from OverviewPH!");
         }
     }
     /**/
-    private class ResourcesPageHandler extends PageHandler
+    private class ResourcesPH extends PageHandler
     {
         protected void process() {
-            Log.println(Log.WARN, "DataParser", "Hello from ResourcesPageHandler!");
+            Log.println(Log.WARN, "DataParser", "Hello from ResourcesPH!");
         }
     }
     /**/
-    private class ResourceSettingsPageHandler extends PageHandler
+    private class ResourceSettingsPH extends PageHandler
     {
         protected void process() {
-            Log.println(Log.WARN, "DataParser", "Hello from ResourceSettingsPageHandler!");
+            Log.println(Log.WARN, "DataParser", "Hello from ResourceSettingsPH!");
         }
     }
     /**/
-    private class FacilitiesPageHandler extends PageHandler
+    private class FacilitiesPH extends PageHandler
     {
         protected void process() {
-            Log.println(Log.WARN, "DataParser", "Hello from facilities!");
+            Log.println(Log.WARN, "DataParser",
+                    "Hello from facilities!");
         }
     }
     /**/
-    private class ResearchPageHandler extends PageHandler
+    private class ResearchPH extends PageHandler
     {
         protected void process() {
-            Log.println(Log.WARN, "DataParser", "Hello from ResearchPageHandler!");
+            Log.println(Log.WARN, "DataParser", "Hello from ResearchPH!");
         }
     }
     /**/
-    private class ShipyardPageHandler extends PageHandler
+    private class ShipyardPH extends PageHandler
     {
         protected void process() {
-            Log.println(Log.WARN, "DataParser", "Hello from ShipyardPageHandler!");
+            Log.println(Log.WARN, "DataParser", "Hello from ShipyardPH!");
         }
     }
     /**/
-    private class DefencePageHandler extends PageHandler
+    private class DefencePH extends PageHandler
     {
         protected void process() {
-            Log.println(Log.WARN, "DataParser", "Hello from DefencePageHandler!");
+            Log.println(Log.WARN, "DataParser", "Hello from DefencePH!");
         }
     }
     //The following class handles multiple pages so it needs to be passed the page identifier:
-    private class FleetPageHandler extends PageHandler
+    private class FleetPH extends PageHandler
     {
         protected void process() {
-            Log.println(Log.WARN, "DataParser", "Hello from FleetPageHandler!");
+            Log.println(Log.WARN, "DataParser", "Hello from FleetPH!");
         }
         //create alternative process method:
         protected void process(int pageID) {
-            Log.println(Log.WARN, "DataParser", "Hello from Fleet1 PageHandler!");
+            Log.println(Log.WARN, "DataParser", "Hello from Fleet1 PH!");
         }
     }
 }

@@ -30,7 +30,7 @@ public class LibOgame
             throw new LibOgameException("Website URL not set!");
         }
         else {
-            hc.requestURL = ogameWebsiteURL;
+            hc.setURL( ogameWebsiteURL );
             hc.runRequest();
             if(hc.returnedData != null && !hc.returnedData.equals("")) {
                 Logger.println("LibOgame.constr.", "Data downloaded!");
@@ -132,11 +132,10 @@ public class LibOgame
                 hc.addPostData("uni", servers.getLink(serverIndex));
 
                 if (hc.runRequest() == ReturnCode.SUCCESS) {
-                    String tmp = hc.getData();
-                    Logger.println("auth.login()", tmp);
+                    Logger.println("auth.login()", hc.returnedData);
 
-                    if (tmp != null) {
-                        dp.parse(tmp);
+                    if (hc.returnedData != null) {
+                        dp.parse(hc.returnedData);
                         return ReturnCode.SUCCESS;
                     }
                     else throw new LibOgameException("auth.login():" +

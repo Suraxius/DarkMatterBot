@@ -15,20 +15,29 @@ import java.io.DataOutputStream;
 class HTTPSClient
 {
     private   String postData;
+    private   URL    url;
     protected String returnedData;
-    protected String requestURL;
 
-    public HTTPSClient() {}
+    protected HTTPSClient()
+    {
+        CookieHandler.setDefault(new CookieManager());
+    }
+
+    protected ReturnCode setURL( String requestURL )
+    {
+        try {
+            url = new URL( requestURL );
+            return ReturnCode.SUCCESS;
+        } catch ( MalformedURLException e ) { return ReturnCode.REFUSED; }
+    }
 
     public ReturnCode runRequest() throws LibOgameException
     {
-        if( requestURL == null || requestURL.equals("") )
-            throw new LibOgameException("HttpsClient.runRequest(): url not set!");
+        if( url == null ) throw new LibOgameException("HttpsClient.runRequest(): url not set!");
         try {
-            CookieHandler.setDefault(new CookieManager());
-            URL url = new URL(requestURL);
             HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
-            connection.setRequestProperty("User-Agent", "Mozilla/5.0 (X11; Linux x86_64; rv:10.0) Gecko/20100101 Firefox/10.0");
+            connection.setRequestProperty("User-Agent",
+                    "Mozilla/5.0 (X11; Linux x86_64; rv:10.0) Gecko/20100101 Firefox/10.0");
             connection.setInstanceFollowRedirects(true);
             connection.setReadTimeout(15000);
             connection.setConnectTimeout(15000);
@@ -36,13 +45,14 @@ class HTTPSClient
             if(this.postData != null) {
                 connection.setRequestMethod("POST");
                 connection.setDoOutput(true);
-                DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
+                DataOutputStream wr = new DataOutputStream( connection.getOutputStream() );
                 wr.writeBytes(this.postData);
                 wr.flush();
                 wr.close();
             }
 
-            BufferedReader br = new BufferedReader( new InputStreamReader( connection.getInputStream() ) );
+            BufferedReader br = new BufferedReader(
+                    new InputStreamReader( connection.getInputStream() ) );
             //Replace with new string to remove old data:
             if(returnedData == null || !returnedData.equals("")) returnedData = new String();
             String tmp;
@@ -72,8 +82,5 @@ class HTTPSClient
     }
 
     public void purgePostData() { postData = null; }
-
     public String getPostData() { return postData; }
-
-    public String getData() { return returnedData; }
 }
