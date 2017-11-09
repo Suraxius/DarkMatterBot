@@ -1,6 +1,6 @@
 package pub.libogame;
 
-import android.util.Log;
+//import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -19,7 +19,7 @@ public class Logger
     public static void log(int errorCode, String errorMessage) {
         errorIDList.add(errorCode);
         errorMessageList.add(errorMessage);
-        Log.println(Log.WARN, "Error Code " + Integer.toString(errorCode), errorMessage);
+        //Log.println(Log.WARN, "Error Code " + Integer.toString(errorCode), errorMessage);
     }
 
     public static int[] getErrorIDs() {
@@ -37,6 +37,7 @@ public class Logger
     }
 
     public static void println(String label, String message) {
-        Log.println(Log.WARN, label, message);
+        //Log.println(Log.WARN, label, message); //Android
+	//System.out.println( label + ": " + message ); //Java
     }
 }

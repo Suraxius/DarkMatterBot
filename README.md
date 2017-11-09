@@ -1,13 +1,17 @@
 # Dark Matter Bot #
-![Dark Matter Bot Logo](https://github.com/Suraxius/darkmatterbot/blob/devel/app/src/main/res/mipmap-xxxhdpi/logo_red.png?raw=true)
-### The OGame Bot for Android ###
+![Dark Matter Bot Logo](https://raw.githubusercontent.com/Suraxius/darkmatterbot/devel/images/DarkMatterBotLogo.png)
+### A versatile Ogame Bot ###
 All the serious players use OGame bots to keep their account safe while they are offline so why shouldn't you?
 
 So far there was no alternative to the OgameAutomizer App for Computers which charges a monthly fee and is only available for Computers.
 
 DMB is a completely free and open source alternative. Created by Ogame players for Ogame players!
 
-Download the latest APK Snapshot [here](https://github.com/Suraxius/darkmatterbot/tree/release)
+It is available on Android, MacOSX, Windows, Linux, Solaris
+
+For Android download the latest APK Snapshot [here](https://github.com/Suraxius/darkmatterbot/tree/release)
+
+For any other Platform download the JavaFX application [here](#) [NOT YET AVAILABLE]
 
 **Please note that the project is in its pre alpha stage.**
 *Want to contribute? PM or Email Suraxius*
