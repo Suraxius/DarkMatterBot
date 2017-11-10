@@ -1,0 +1,5 @@
+/bin
+/manifest
+*.class
+*.jar
+
