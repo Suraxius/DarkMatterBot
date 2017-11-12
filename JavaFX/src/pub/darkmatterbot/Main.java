@@ -12,6 +12,7 @@ import javafx.collections.ObservableList;
 import java.util.ArrayList;
 import java.net.URL;
 import pub.libogame.*;
+//import pub.libogame.HTTPSClient;
 
 public class Main extends Application {
 
@@ -33,7 +34,7 @@ public class Main extends Application {
             System.out.println(e.toString());
             System.exit(1);
         }
-
+        
         //Get image file:
         ClassLoader cl = this.getClass().getClassLoader();
         URL logo = cl.getResource("images/DarkMatterBotLogo.png");
@@ -56,6 +57,7 @@ public class Main extends Application {
         primaryStage.setMinWidth( 900 );
         primaryStage.setMaxWidth( 900 );
         primaryStage.setScene(new Scene(root, 900, 600));
+        
         primaryStage.show();
     }
 }

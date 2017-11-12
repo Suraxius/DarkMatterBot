@@ -38,6 +38,6 @@ public class Logger
 
     public static void println(String label, String message) {
         //Log.println(Log.WARN, label, message); //Android
-	//System.out.println( label + ": " + message ); //Java
+	System.out.println( label + ": " + message ); //Java
     }
 }

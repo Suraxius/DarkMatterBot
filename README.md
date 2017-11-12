@@ -11,7 +11,7 @@ It is available on Android, MacOSX, Windows, Linux, Solaris
 
 For Android download the latest APK Snapshot [here](https://github.com/Suraxius/darkmatterbot/tree/release)
 
-For any other Platform download the JavaFX application [here](#) [NOT YET AVAILABLE]
+For any other Platform download the JavaFX application [here](https://github.com/Suraxius/darkmatterbot/tree/release)
 
 **Please note that the project is in its pre alpha stage.**
 *Want to contribute? PM or Email Suraxius*

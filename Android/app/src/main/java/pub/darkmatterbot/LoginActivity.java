@@ -24,7 +24,7 @@ public class LoginActivity extends Activity {
     EditText _username;
     EditText _password;
     LibOgame _libOgame;
-    ReturnCode _setServerReturnCode = ReturnCode.REFUSED;
+    boolean _serverIsSet = false;
 
 
     @Override
@@ -41,25 +41,26 @@ public class LoginActivity extends Activity {
         _loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ReturnCode u_rc = _libOgame.auth.setUsername( _username.getText().toString() );
-                ReturnCode p_rc = _libOgame.auth.setPassword( _password.getText().toString() );
+                String username = _username.getText().toString();
+                String password = _password.getText().toString();
 
-                if( _setServerReturnCode != ReturnCode.SUCCESS ) {
-                    Toast.makeText(getApplicationContext(), "No Universe Selected!",
-                            Toast.LENGTH_SHORT).show();
+                if( !_serverIsSet ) {
+                    Toast.makeText(getApplicationContext(), "No Universe Selected!", Toast.LENGTH_SHORT).show();
                 }
-                else if( u_rc != ReturnCode.SUCCESS) {
-                    Toast.makeText(getApplicationContext(), "No Username specified!",
-                            Toast.LENGTH_SHORT).show();
+                else if( username.equals("") ) {
+                    Toast.makeText(getApplicationContext(), "No Username specified!", Toast.LENGTH_SHORT).show();
                 }
-                else if(p_rc != ReturnCode.SUCCESS ) {
-                    Toast.makeText(getApplicationContext(), "No Password specified!",
-                            Toast.LENGTH_SHORT).show();
+                else if( password.equals("") ) {
+                    Toast.makeText(getApplicationContext(), "No Password specified!", Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    Toast.makeText(getApplicationContext(), "Logging in...",
-                            Toast.LENGTH_LONG).show();
-                    new LoginTask().execute( (Void[]) null );
+                    try {
+                        _libOgame.auth.setUsername(username);
+                        _libOgame.auth.setPassword(password);
+                        Toast.makeText(getApplicationContext(), "Logging in...", Toast.LENGTH_LONG).show();
+                        new LoginTask().execute((Void[]) null);
+                    } catch (LibOgameException e) { Log.println(Log.WARN, "LoginActivity",
+                            "LibOgame didn't like the username or password!"); }
                 }
             }
         });
@@ -78,12 +79,16 @@ public class LoginActivity extends Activity {
         _server_dropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                _setServerReturnCode = _libOgame.auth.setServer(i-1);
+                try {
+                    _libOgame.auth.setServer(i-1);
+                    _serverIsSet = true;
+                }
+                catch (LibOgameException e) { _serverIsSet = false; }
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-                _setServerReturnCode = ReturnCode.REFUSED;
+                _serverIsSet = false;
             }
         });
 

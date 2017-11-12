@@ -78,40 +78,29 @@ public class LibOgame
          * @return Returns ErrorCode.REFUSED if invalid uparameter was
          * specified and ReturnCode.SUCCESS otherwise.
          */
-        public ReturnCode setCredentials( int serverIndex, String username, String password )
+        public void setCredentials( int serverIndex, String username, String password ) throws LibOgameException
         {
-            if( setUsername(username) == ReturnCode.SUCCESS &&
-                setPassword(password) == ReturnCode.SUCCESS &&
-                setServer(serverIndex) == ReturnCode.SUCCESS)
-            { return ReturnCode.SUCCESS; }
-            else return ReturnCode.REFUSED;
+            setUsername(username);
+            setPassword(password);
+            setServer(serverIndex);
         }
 
-        public ReturnCode setUsername(String username)
+        public void setUsername(String username) throws LibOgameException
         {
-            if(username != null && !username.equals("") ) {
-                this.username = username;
-                return ReturnCode.SUCCESS;
-            }
-            else return ReturnCode.REFUSED;
+            if(username != null && !username.equals("") ) this.username = username;
+            else throw new LibOgameException("auth.setUsername(index): Username not specified!");
         }
 
-        public ReturnCode setPassword(String password)
+        public void setPassword(String password) throws LibOgameException
         {
-            if(password != null && !password.equals("") ) {
-                this.password = password;
-                return ReturnCode.SUCCESS;
-            }
-            else return ReturnCode.REFUSED;
+            if(password != null && !password.equals("") ) this.password = password;
+            else throw new LibOgameException("auth.setPassword(index): Password not specified!");
         }
 
-        public ReturnCode setServer(int serverIndex)
+        public void setServer(int serverIndex) throws LibOgameException
         {
-            if( serverIndex >  0 && serverIndex <  servers.count() ) {
-                this.serverIndex = serverIndex;
-                return ReturnCode.SUCCESS;
-            }
-            else return ReturnCode.REFUSED;
+            if( serverIndex >= 0 && serverIndex <  servers.count() ) this.serverIndex = serverIndex;
+            else throw new LibOgameException("auth.setServer(index): Server index out of bounds!");
         }
 
         /**
@@ -121,7 +110,7 @@ public class LibOgame
          */
         public ReturnCode login() throws LibOgameException
         {
-            if(serverIndex > 0 && serverIndex < servers.count() &&
+            if(serverIndex >= 0 && serverIndex < servers.count() &&
                    username != null && password != null
                 ) {
                 this.serverIndex = serverIndex;
@@ -132,17 +121,12 @@ public class LibOgame
                 hc.addPostData("uni", servers.getLink(serverIndex));
 
                 if (hc.runRequest() == ReturnCode.SUCCESS) {
-                    Logger.println("auth.login()", hc.returnedData);
-
                     if (hc.returnedData != null) {
                         dp.parse(hc.returnedData);
                         return ReturnCode.SUCCESS;
-                    }
-                    else throw new LibOgameException("auth.login():" +
-                            "No HTML Content to work with!");
+                    } else throw new LibOgameException("auth.login(): No HTML Content to work with!");
                 } else throw new LibOgameException("auth.login(): Login failed!");
-            } else throw new LibOgameException("auth.login():" +
-                    "server index, username or password are not set!");
+            } else throw new LibOgameException("auth.login(): server index, username or password are not set!");
         }
 
         /**
@@ -154,13 +138,10 @@ public class LibOgame
          * codes as login() without parameters otherwise.
          * @throws LibOgameException
          */
-        public ReturnCode login( int serverIndex, String username, String password )
-                throws LibOgameException
+        public ReturnCode login( int serverIndex, String username, String password ) throws LibOgameException
         {
-            if( setCredentials( serverIndex, username, password ) == ReturnCode.SUCCESS ) {
-                return login();
-            }
-            else return ReturnCode.REFUSED;
+            setCredentials( serverIndex, username, password );
+            return login();
         }
     }
 }

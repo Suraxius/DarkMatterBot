@@ -17,7 +17,7 @@ run : bin
 
 #Compile and run test on change of source files
 onChange :
-	while true; do inotifywait src/bup/*/*.java -e modify,moved_to; make test; done
+	while true; do inotifywait src/bup/*/*.java -e modify,moved_to; make run; done
 
 # Clean up the mess:
 clean :
