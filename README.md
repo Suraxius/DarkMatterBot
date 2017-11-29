@@ -1,5 +1,5 @@
 # Dark Matter Bot #
-![Dark Matter Bot Logo](https://raw.githubusercontent.com/Suraxius/darkmatterbot/devel/images/DarkMatterBotLogo.png)
+![Dark Matter Bot Logo](https://raw.githubusercontent.com/Suraxius/darkmatterbot/master/images/DarkMatterBotLogo.png)
 ### A versatile Ogame Bot ###
 All the serious players use OGame bots to keep their account safe while they are offline so why shouldn't you?
 
