@@ -79,7 +79,7 @@ class DataParser
     private class LoginPH extends PageHandler
     {
         protected void process() {
-            Logger.println( "DataParser", " Hello from LoginPH! ");
+            Logger.println("DataParser: Hello from LoginPH!");
             parseServerList(context, pageContent);
             parseRequestURL(context, pageContent);
         }
@@ -126,61 +126,60 @@ class DataParser
     private class OverviewPH extends PageHandler
     {
         protected void process() {
-            Logger.println( "DataParser", "Hello from OverviewPH!");
+            Logger.println( "DataParser: Hello from OverviewPH!");
         }
     }
     /**/
     private class ResourcesPH extends PageHandler
     {
         protected void process() {
-            Logger.println( "DataParser", "Hello from ResourcesPH!");
+            Logger.println( "DataParser: Hello from ResourcesPH!");
         }
     }
     /**/
     private class ResourceSettingsPH extends PageHandler
     {
         protected void process() {
-            Logger.println( "DataParser", "Hello from ResourceSettingsPH!");
+            Logger.println( "DataParser: Hello from ResourceSettingsPH!");
         }
     }
     /**/
     private class FacilitiesPH extends PageHandler
     {
         protected void process() {
-            Logger.println( "DataParser",
-                    "Hello from facilities!");
+            Logger.println( "DataParser: Hello from facilities!");
         }
     }
     /**/
     private class ResearchPH extends PageHandler
     {
         protected void process() {
-            Logger.println( "DataParser", "Hello from ResearchPH!");
+            Logger.println( "DataParser: Hello from ResearchPH!");
         }
     }
     /**/
     private class ShipyardPH extends PageHandler
     {
         protected void process() {
-            Logger.println( "DataParser", "Hello from ShipyardPH!");
+            Logger.println( "DataParser: Hello from ShipyardPH!");
         }
     }
     /**/
     private class DefencePH extends PageHandler
     {
         protected void process() {
-            Logger.println( "DataParser", "Hello from DefencePH!");
+            Logger.println( "DataParser: Hello from DefencePH!");
         }
     }
     //The following class handles multiple pages so it needs to be passed the page identifier:
     private class FleetPH extends PageHandler
     {
         protected void process() {
-            Logger.println( "DataParser", "Hello from FleetPH!");
+            Logger.println( "DataParser: Hello from FleetPH!");
         }
         //create alternative process method:
         protected void process(int pageID) {
-            Logger.println( "DataParser", "Hello from Fleet1 PH!");
+            Logger.println( "DataParser: Hello from Fleet1 PH!");
         }
     }
 }

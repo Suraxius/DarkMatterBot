@@ -1,12 +1,10 @@
 package pub.darkmatterbot;
 
-import java.util.ArrayList;
-import java.net.URL;
 import pub.libogame.*;
 //import pub.libogame.HTTPSClient;
 
-public class Main {
-
+public class Main
+{
     public static void main(String[] args)
     {
         //Initialize the LibOgame instance:

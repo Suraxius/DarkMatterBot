@@ -33,7 +33,7 @@ public class LibOgame
             hc.setURL( ogameWebsiteURL );
             hc.runRequest();
             if(hc.returnedData != null && !hc.returnedData.equals("")) {
-                Logger.println("LibOgame.constr.", "Data downloaded!");
+                Logger.println("LibOgame.constr.: Data downloaded!");
                 dp.parse(hc.returnedData);
             }
         }

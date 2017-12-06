@@ -12,24 +12,27 @@ import java.net.URLEncoder;
 import java.io.UnsupportedEncodingException;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.zip.GZIPInputStream;
 import java.io.DataOutputStream;
-import java.util.concurrent.TimeUnit;
+import java.util.zip.GZIPInputStream;
 
 //For testing:
 import java.io.PrintWriter;
+import java.net.HttpCookie;
+import java.util.List;
 
 public class HTTPSClient
 {
-    private   String postData;
-    private   URL    url;
-    private   CookieStore cs;
-    protected String returnedData;
+    private   String        postData;
+    private   URL           url;
+    private   CookieManager cm;
+    private   CookieStore   cs;
+    protected String        returnedData;
 
     public HTTPSClient()
     {
-        CookieHandler.setDefault(new CookieManager(null, CookiePolicy.ACCEPT_ALL));
-        cs = ((CookieManager) CookieHandler.getDefault()).getCookieStore();
+        cm = new CookieManager(null, CookiePolicy.ACCEPT_ORIGINAL_SERVER);
+        CookieHandler.setDefault(cm);
+        cs = cm.getCookieStore();
     }
 
     public ReturnCode setURL( String requestURL )
@@ -42,6 +45,8 @@ public class HTTPSClient
 
     public ReturnCode runRequest() throws LibOgameException
     {
+        Logger.println("---------------------------");
+        
         if( url == null ) throw new LibOgameException("HttpsClient.runRequest(): url not set!");
         try {
             HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
@@ -54,11 +59,22 @@ public class HTTPSClient
             connection.setReadTimeout(15000);
             connection.setConnectTimeout(15000);
             
-            Logger.println("Communication URL", url.toString());
-            Logger.println("Cookies before", Integer.toString(cs.getCookies().size()));
-
+            Logger.println("Communication URL: " + url.toString());
+            Logger.println("Cookies before: " + Integer.toString(cs.getCookies().size()));
+            
+            
+            List<HttpCookie> cookies = cs.get(url.toURI());
+            Logger.println(cookies.size() + " Cookies will be send.");
+            for( final HttpCookie cookie : cookies ) {
+                Logger.println("Cookie Name:" + cookie.getName() + " Value:" + cookie.getValue());
+            }
+            
+            
+            //connection.setRequestProperty("Cookie", "PHPSESSID=" + cs.getCookies().get(cs.g));
+            
             //Switch to Post mode if there is post data to be send:
             if(this.postData != null) {
+                Logger.println("Switching to POST mode to transfer post data...");
                 connection.setRequestMethod("POST");
                 connection.setDoOutput(true);
                 DataOutputStream wr = new DataOutputStream( connection.getOutputStream() );
@@ -75,21 +91,18 @@ public class HTTPSClient
             else {
                 reader = new InputStreamReader(connection.getInputStream());
             }
-
             BufferedReader br = new BufferedReader(reader);
 
             
-            Logger.println("Cookies after", Integer.toString(cs.getCookies().size()));
-            
+            Logger.println("Cookies after: " + Integer.toString(cs.getCookies().size()));
             int returnCode = connection.getResponseCode();
-
-            Logger.println("Http ReturnCode", Integer.toString(returnCode));
+            Logger.println("Http ReturnCode: " + Integer.toString(returnCode));
             //Logger.println("Header", connection.getHeaderField("Location"));
             
-            TimeUnit.SECONDS.sleep(5);
             
             switch(returnCode) {
                 case 302:
+                    //TimeUnit.SECONDS.sleep(10);
                 case 303:
                     purgePostData();
                     url = new URL(connection.getHeaderField("Location"));
@@ -105,7 +118,7 @@ public class HTTPSClient
 
                     //Print read data to console:
                     //Logger.println("Returned Data:\n", returnedData + "\n------------\n");
-
+                    
                     //Test code:
                     PrintWriter writer = new PrintWriter("out.htm", "UTF-8");
                     writer.print(returnedData);

@@ -36,8 +36,8 @@ public class Logger
         return errorArray;
     }
 
-    public static void println(String label, String message) {
+    public static void println(String message) {
         //Log.println(Log.WARN, label, message); //Android
-	System.out.println( label + ": " + message ); //Java
+	System.out.println( message ); //Java
     }
 }
