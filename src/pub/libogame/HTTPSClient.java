@@ -66,7 +66,9 @@ public class HTTPSClient
             List<HttpCookie> cookies = cs.get(url.toURI());
             Logger.println(cookies.size() + " Cookies will be send.");
             for( final HttpCookie cookie : cookies ) {
-                Logger.println("Cookie Name:" + cookie.getName() + " Value:" + cookie.getValue());
+                Logger.println("Cookie Name:" + cookie.getName() +
+                               " Value:" + cookie.getValue() +
+                               " Domain:" + cookie.getDomain());
             }
             
             
