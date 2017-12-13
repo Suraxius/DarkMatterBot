@@ -43,8 +43,9 @@ public class HTTPSClient
         } catch ( MalformedURLException e ) { return ReturnCode.REFUSED; }
     }
 
-    public ReturnCode runRequest() throws LibOgameException
+    public int runRequest() throws LibOgameException
     {
+        int returnCode = 0;
         Logger.println("---------------------------");
         
         if( url == null ) throw new LibOgameException("HttpsClient.runRequest(): url not set!");
@@ -97,26 +98,22 @@ public class HTTPSClient
 
             
             Logger.println("Cookies after: " + Integer.toString(cs.getCookies().size()));
-            int returnCode = connection.getResponseCode();
+            returnCode = connection.getResponseCode();
             Logger.println("Http ReturnCode: " + Integer.toString(returnCode));
             //Logger.println("Header", connection.getHeaderField("Location"));
             
             
             switch(returnCode) {
                 case 302:
-                    //TimeUnit.SECONDS.sleep(10);
                 case 303:
-                    purgePostData();
                     url = new URL(connection.getHeaderField("Location"));
-                    runRequest();
-                    break;
+                    return returnCode;
                 case 200:
                     //Read Data:
                     if(returnedData == null || !returnedData.equals("")) returnedData = new String();
                     String tmp;
                     while( (tmp = br.readLine()) != null ) returnedData += tmp;
                     br.close();
-                    connection.disconnect();
 
                     //Print read data to console:
                     //Logger.println("Returned Data:\n", returnedData + "\n------------\n");
@@ -126,14 +123,13 @@ public class HTTPSClient
                     writer.print(returnedData);
                     writer.close();
                     //End of Test Code
-                    break;
-                default: throw new LibOgameException("HTTPSClient.runRequest(): Unknown HTTP Return Code: " + returnCode);
+                    return returnCode;
             }
+            purgePostData();
+            connection.disconnect();
         }
-        catch (Exception e) {
-            throw new LibOgameException("HttpsClient.runRequest(): " + e.toString()); }
-
-        return ReturnCode.SUCCESS;
+        catch (Exception e) { throw new LibOgameException("HTTPSClient.runRequest(): " + e.toString()); }
+        throw new LibOgameException("HTTPSClient.runRequest(): Unknown HTTP Return Code: " + returnCode);
     }
 
     public void addPostData( String name, String value ) {
@@ -143,12 +139,8 @@ public class HTTPSClient
         }
         catch(UnsupportedEncodingException e) {}
 
-        if(postData == null)
-            postData  = (name + "=" + value);
-        else
-            postData += ("&" + name + "=" + value);
-
-
+        if(postData == null) postData = (name + "=" + value);
+        else postData += ("&" + name + "=" + value);
     }
 
     public void purgePostData() { postData = null; }

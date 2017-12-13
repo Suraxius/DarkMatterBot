@@ -31,11 +31,12 @@ public class LibOgame
         }
         else {
             hc.setURL( ogameWebsiteURL );
-            hc.runRequest();
-            if(hc.returnedData != null && !hc.returnedData.equals("")) {
-                Logger.println("LibOgame.constr.: Data downloaded!");
+            int returnCode = hc.runRequest();
+            if(returnCode == 200 && hc.returnedData != null && !hc.returnedData.equals("")) {
+                Logger.println("LibOgame.constructor: Data downloaded!");
                 dp.parse(hc.returnedData);
             }
+            else throw new LibOgameException("LibOgame.constructor: Failed to fetch needed data!");
         }
     }
 
@@ -111,8 +112,8 @@ public class LibOgame
         public ReturnCode login() throws LibOgameException
         {
             if(serverIndex >= 0 && serverIndex < servers.count() &&
-                   username != null && password != null
-                ) {
+                   username != null && password != null)
+            {
                 this.serverIndex = serverIndex;
                 //Do the login stuff:
                 hc.addPostData("kid", "");
@@ -120,13 +121,16 @@ public class LibOgame
                 hc.addPostData("pass", password);
                 hc.addPostData("uni", servers.getLink(serverIndex));
 
-                if (hc.runRequest() == ReturnCode.SUCCESS) {
-                    if (hc.returnedData != null) {
-                        dp.parse(hc.returnedData);
-                        return ReturnCode.SUCCESS;
-                    } else throw new LibOgameException("auth.login(): No HTML Content to work with!");
-                } else throw new LibOgameException("auth.login(): Login failed!");
-            } else throw new LibOgameException("auth.login(): server index, username or password are not set!");
+                if( hc.runRequest() == 303 &&
+                    hc.runRequest() == 302 &&
+                    hc.runRequest() == 200 &&
+                    hc.returnedData != null) {
+                    dp.parse(hc.returnedData);
+                    return ReturnCode.SUCCESS;
+                }
+                else throw new LibOgameException("auth.login(): Login failed!");
+            }
+            else throw new LibOgameException("auth.login(): server index, username or password are not set!");
         }
 
         /**
